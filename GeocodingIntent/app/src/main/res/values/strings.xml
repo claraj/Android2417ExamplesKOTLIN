@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GeocodingIntent</string>
+    <string name="map_button_text">Show Map</string>
+    <string name="instructions">Enter place to map</string>
+</resources>
