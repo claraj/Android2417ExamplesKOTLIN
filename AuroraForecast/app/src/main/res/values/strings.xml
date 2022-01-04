@@ -2,4 +2,6 @@
     <string name="app_name">Aurora Forecast</string>
     <string name="channel_name">Aurora Notifications</string>
     <string name="channel_description">Notifications if KP is above 4</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

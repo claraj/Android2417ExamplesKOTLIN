@@ -14,3 +14,21 @@ Add future thing
 implementation "androidx.concurrent:concurrent-futures:1.1.0"
     // Kotlin
     implementation "androidx.concurrent:concurrent-futures-ktx:1.1.0"
+
+Charts - add
+
+  maven { url 'https://jitpack.io' }
+
+to settings.gradle
+
+
+Issues and TODOs
+
+* notification icon not showing
+* replace textview with list view
+* or maybe a graph?
+* Swipe left/right for table and graph
+* use a listenable worker instead of a worker to handle success/failure
+* How to rename it in a lambda
+
+Kotlin co-routines?

@@ -47,7 +47,7 @@ class ForecastRequestWorker(val context: Context, workerParameters: WorkerParame
                notifyIfAuroraLikely(it)
 
             }, {
-                Log.e(TAG, "There was an errors calling the API", it)
+                Log.e(TAG, "There was an error calling the API", it)
             } )
 
         return Result.success()
@@ -55,9 +55,8 @@ class ForecastRequestWorker(val context: Context, workerParameters: WorkerParame
 
     private fun notifyIfAuroraLikely(reports: List<Report>) {
 
-        val futureReports = reports.filter { it.status != "observed" }
-        val interestingReports = futureReports.filter { it.kp > 3 }
-
+        val futureReports = reports.filter { it.status == "predicted" }
+        val interestingReports = futureReports.filter { it.kp > 4 }
 
         if (interestingReports.isNotEmpty()) {
 
