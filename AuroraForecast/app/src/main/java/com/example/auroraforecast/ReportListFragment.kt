@@ -8,30 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 
-/**
- * A fragment representing a list of Items.
- */
+private const val TAG = "REPORT LIST FRAGMENT"
 
-private const val TAG = "RECORD LIST FRAGMENT"
-
-class RecordListFragment : Fragment() {
+class ReportListFragment : Fragment() {
 
     lateinit var reportsListRecycler: RecyclerView
     lateinit var reportList: List<Report>
-
 
     fun updateView(reportList: List<Report>) {
 
         this.reportList = reportList
 
         if (this::reportsListRecycler.isInitialized && this::reportList.isInitialized) {
-            //Toast.makeText(context, "update list", Toast.LENGTH_LONG).show()
             Log.d(TAG, "new list with elements count: ${reportList.size}")
-
             val recycler = ReportRecyclerAdapter(reportList)
-            reportsListRecycler.adapter = recycler // ReportRecycler(reportList)
+            reportsListRecycler.adapter = recycler
         } else {
             Log.d(TAG, "view not initialized")
         }
@@ -45,7 +37,7 @@ class RecordListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_record_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_report_list, container, false)
 
         reportsListRecycler = view.findViewById(R.id.reports)
         reportsListRecycler.layoutManager = LinearLayoutManager(context)
@@ -56,26 +48,11 @@ class RecordListFragment : Fragment() {
             updateView(reportList)
         }
 
-//        // Set the adapter
-//        if (view is RecyclerView) {
-//            with(view) {
-//                layoutManager = when {
-//                    columnCount <= 1 -> LinearLayoutManager(context)
-//                    else -> GridLayoutManager(context, columnCount)
-//                }
-//                adapter = ReportRecyclertmp(PlaceholderContent.ITEMS)
-//            }
-//        }
         return view
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() =
-            RecordListFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
+        fun newInstance() = ReportListFragment()
     }
 }

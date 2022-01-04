@@ -2,7 +2,6 @@ package com.example.auroraforecast
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -15,7 +14,7 @@ private const val NUM_PAGES = 2
 
 class MainActivity : AppCompatActivity() {
 
-    private var recordListFragment: RecordListFragment = RecordListFragment.newInstance()
+    private var reportListFragment: ReportListFragment = ReportListFragment.newInstance()
     private var chartFragment: ChartFragment = ChartFragment.newInstance()
     
     private lateinit var viewPager: ViewPager2
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun createFragment(position: Int): Fragment {
             if (position == 0) {
-                return recordListFragment
+                return reportListFragment
             } else {
                 return chartFragment
             }
@@ -49,18 +48,13 @@ class MainActivity : AppCompatActivity() {
 
         ForecastApiRequest(this).requestAurora(
             { reportList ->
-                recordListFragment.updateView(reportList)
+                reportListFragment.updateView(reportList)
                 chartFragment.updateData(reportList)
             },
             { error ->
                 showError("Unable to fetch aurora info")
             }
         )
-
-        val stopButton: Button = findViewById(R.id.stop)
-        stopButton.setOnClickListener {
-            ForecastWorkRequestManager(this).stopAll()
-        }
     }
 
     // a single-expression function

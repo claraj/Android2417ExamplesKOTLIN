@@ -8,15 +8,16 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
+
 private const val TAG = "REPORT RECYCLER"
 
 class ReportRecyclerAdapter(var dataSet: List<Report> ):
     RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val dateTV: TextView = view.findViewById(R.id.dateTextView)
-        val kpTV: TextView = view.findViewById(R.id.kpTextView)
-        val statusTV: TextView = view.findViewById(R.id.statusTextView)
+        var dateTV: TextView = view.findViewById(R.id.dateTextView)
+        var kpTV: TextView = view.findViewById(R.id.kpTextView)
+        var statusTV: TextView = view.findViewById(R.id.statusTextView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,11 +27,14 @@ class ReportRecyclerAdapter(var dataSet: List<Report> ):
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val record = dataSet[position]
+        val report = dataSet[position]
 
-        holder.dateTV.text = record.stringDate
+        // format the date
 
-        val kp = record.kp
+        val dateString = noaaDateStringToUserString(report.stringDate)
+        holder.dateTV.text = dateString
+
+        val kp = report.kp
         holder.kpTV.text = "$kp"
 
         // Change the color of the KP number's text based on the numeric value
@@ -47,7 +51,7 @@ class ReportRecyclerAdapter(var dataSet: List<Report> ):
             }
         }
 
-        holder.statusTV.text = record.status
+        holder.statusTV.text = report.status
     }
 
     override fun getItemCount(): Int {
