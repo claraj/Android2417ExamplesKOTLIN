@@ -8,6 +8,9 @@ https://developer.android.com/topic/libraries/architecture/workmanager
 
 New string channel_name
 
+
+https://www.flaticon.com/free-icon/aurora_721146
+
 Aurora Icon from <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 Add future thing
@@ -26,10 +29,8 @@ Chart - write the XML for the chart page
 Issues and TODOs
 
 * notification icon not showing
-* replace textview with list view
-* or maybe a graph?
-* Swipe left/right for table and graph
 * use a listenable worker instead of a worker to handle success/failure
-* How to rename it in a lambda
+
+
 
 Kotlin co-routines?

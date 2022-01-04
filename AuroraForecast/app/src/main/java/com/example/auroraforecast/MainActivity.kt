@@ -45,11 +45,12 @@ class MainActivity : AppCompatActivity() {
 
         ForecastWorkRequest(this).start()
 
-        ForecastRequest(this).requestAurora(  { reportList ->  // rename the default it parameter
+        ForecastApiRequest(this).requestAurora(  { reportList ->  // rename the default it parameter
 //           // recordListFragment.reportList =
             recordListFragment.updateView(reportList)
 //            chartFragment.reportList = reportList
             chartFragment.updateData(reportList)
+
 
         }, { error ->
             showError("Unable to fetch aurora info")

@@ -15,6 +15,8 @@ class Notifications(val context: Context) {
 
      fun showNotification(message: String) {
 
+          // apply is a scope function
+          // https://kotlinlang.org/docs/scope-functions.html#apply
           val intent = Intent(context, MainActivity::class.java).apply {
                flags = Intent.FLAG_ACTIVITY_NEW_TASK
           }
@@ -22,7 +24,7 @@ class Notifications(val context: Context) {
           val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
           var notification = NotificationCompat.Builder(context, CHANNEL_ID)
-               .setSmallIcon(R.drawable.aurora)
+               .setSmallIcon(R.drawable.aurora_notification)
                .setContentTitle("Aurora Forecast")
                .setContentText(message)
                .setPriority(NotificationCompat.PRIORITY_DEFAULT)

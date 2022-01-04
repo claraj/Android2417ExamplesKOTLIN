@@ -1,12 +1,8 @@
 package com.example.auroraforecast
 import android.content.Context
 import android.util.Log
-import androidx.concurrent.futures.CallbackToFutureAdapter
-import androidx.work.ListenableWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.google.common.util.concurrent.ListenableFuture
-import org.json.JSONArray
 
 //class ForecastRequestWorker(val context: Context, workerParameters: WorkerParameters):
 //    ListenableWorker(context, workerParameters) {
@@ -31,23 +27,23 @@ import org.json.JSONArray
 
 //}
 
+private const val MIN_INTEREST_KP = 4
+private const val TAG = "FORECAST REQUEST WORKER"
+
 class ForecastRequestWorker(val context: Context, workerParameters: WorkerParameters):
     Worker(context, workerParameters) {
-
-    val TAG = "ForecastRequestWorker"
-
 
     override fun doWork():  Result {
 
         Log.d(TAG, "Do work starting")
 
-            ForecastRequest(context).requestAurora( {
+            ForecastApiRequest(context).requestAurora( { reports ->
 
                Log.d(TAG, "The worker called the api successfully")
-               notifyIfAuroraLikely(it)
+               notifyIfAuroraLikely(reports)
 
-            }, {
-                Log.e(TAG, "There was an error calling the API", it)
+            }, { error ->
+                    Log.e(TAG, "There was an error calling the API", error)
             } )
 
         return Result.success()
@@ -56,7 +52,11 @@ class ForecastRequestWorker(val context: Context, workerParameters: WorkerParame
     private fun notifyIfAuroraLikely(reports: List<Report>) {
 
         val futureReports = reports.filter { it.status == "predicted" }
-        val interestingReports = futureReports.filter { it.kp > 4 }
+        val interestingReports = futureReports.filter { it.kp > MIN_INTEREST_KP }
+
+        Log.d(TAG, "${reports.size} reports")
+        Log.d(TAG, "${futureReports.size} future reports")
+        Log.d(TAG, "${interestingReports.size} interesting reports")
 
         if (interestingReports.isNotEmpty()) {
 

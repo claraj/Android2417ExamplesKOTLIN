@@ -12,7 +12,7 @@ import org.json.JSONArray
 
 private const val TAG = "FORECAST REQUEST"
 
-class ForecastRequest(context: Context) {
+class ForecastApiRequest(context: Context) {
 
     private val url = "https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json"
     private var queue: RequestQueue = Volley.newRequestQueue(context)
@@ -22,14 +22,14 @@ class ForecastRequest(context: Context) {
         Log.d(TAG, "Making request")
 
         val jsonForecast = JsonArrayRequest(Request.Method.GET, url, null,
-            {
+            { jsonArray ->
 
                 val reports: MutableList<Report> = mutableListOf()
                 Log.d(TAG, "Got response, processing")
 
 //                The first item is a header, so skip and start at 1
-                for (r in 1 until it.length()) {
-                    val reportArray = it[r] as JSONArray
+                for (r in 1 until jsonArray.length()) {
+                    val reportArray = jsonArray[r] as JSONArray
 //                    Log.d(TAG, reportArray.toString())
                     val date = reportArray[0] as String
                     val kp =  reportArray[1] as String
@@ -39,16 +39,13 @@ class ForecastRequest(context: Context) {
                     reports.add(report)
                 }
 
-            for (x in 0 until it.length() ) {
-//                Log.d(TAG, it[x].toString())
-            }
                 Log.d(TAG, "Made request, returning list of reports")
                 success(reports)
             },
 
-            {
-                Log.e(TAG, it.toString())
-                failure(it)
+            { error ->
+                Log.e(TAG, "Error making request to API", error)
+                failure(error)
 
             })
 
