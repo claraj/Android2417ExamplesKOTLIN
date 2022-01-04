@@ -21,6 +21,7 @@ Charts - add
 
 to settings.gradle
 
+Chart - write the XML for the chart page
 
 Issues and TODOs
 

@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 
+
 private const val NUM_PAGES = 2
 private var recordListFragment: RecordListFragment = RecordListFragment.newInstance()
 private var chartFragment: ChartFragment = ChartFragment.newInstance()
@@ -40,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         val pagerAdapter = TableChartPagerAdapter(this)
         viewPager.adapter = pagerAdapter
 
-
         Notifications(this).createNotificationChannel()
 
         ForecastWorkRequest(this).start()
@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity() {
         ForecastRequest(this).requestAurora(  { reportList ->  // rename the default it parameter
 //           // recordListFragment.reportList =
             recordListFragment.updateView(reportList)
-            chartFragment.reportList = reportList
+//            chartFragment.reportList = reportList
+            chartFragment.updateData(reportList)
 
         }, { error ->
             showError("Unable to fetch aurora info")

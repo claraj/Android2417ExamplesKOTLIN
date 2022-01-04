@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ChartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.anychart.AnyChartView
+        android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="chart here" />
+        android:layout_height="match_parent"></com.anychart.AnyChartView>
+
 
 </FrameLayout>
