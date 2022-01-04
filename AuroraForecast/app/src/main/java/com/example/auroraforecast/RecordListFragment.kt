@@ -23,18 +23,22 @@ class RecordListFragment : Fragment() {
 
 
     fun updateView(reportList: List<Report>) {
-        if (this::reportsListRecycler.isInitialized) {
+
+        this.reportList = reportList
+
+        if (this::reportsListRecycler.isInitialized && this::reportList.isInitialized) {
             Toast.makeText(context, "update list", Toast.LENGTH_LONG).show()
             Log.d(TAG, "new list with elements count: ${reportList.size}")
 
             val recycler = ReportRecyclerAdapter(reportList)
             reportsListRecycler.adapter = recycler // ReportRecycler(reportList)
+        } else {
+            Log.d(TAG, "view not initialized")
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -52,6 +56,10 @@ class RecordListFragment : Fragment() {
 
         Log.d(TAG, "Recycler has been initialized")
 
+        if (this::reportList.isInitialized) {
+            updateView(reportList)
+        }
+
 //        // Set the adapter
 //        if (view is RecyclerView) {
 //            with(view) {
@@ -66,8 +74,6 @@ class RecordListFragment : Fragment() {
     }
 
     companion object {
-
-
         @JvmStatic
         fun newInstance() =
             RecordListFragment().apply {

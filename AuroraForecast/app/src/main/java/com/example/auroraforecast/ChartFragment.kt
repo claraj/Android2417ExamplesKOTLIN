@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.anychart.AnyChart
 import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
+import com.anychart.graphics.vector.*
 import com.anychart.palettes.RangeColors
+import java.util.Collections.max
 
 private const val TAG = "CHART FRAGMENT"
 
@@ -19,6 +22,7 @@ class ChartFragment : Fragment() {
 
     var reportList: List<Report> = listOf()
     lateinit var anyChartView: AnyChartView
+    lateinit var chartProgressBar: ProgressBar
 //    private lateinit var view: View
 
     fun drawChart() {
@@ -30,14 +34,38 @@ class ChartFragment : Fragment() {
                 ValueDataEntry(rep.stringDate, rep.kp)
             }
 
+            val maxKp = reportList.maxOf { rep -> rep.kp}
+            Log.d(TAG, "Max KP is $maxKp")
 
             columnChart.data(reportData)
 
           //  val rangeColors = RangeColors("#446622")
 //            columnChart.palette(rangeColors)
+
+            val series = columnChart.getSeries(0)
+//            val fill = SolidFill("440044", 1)
+
+            val height = anyChartView.height
+            val width = anyChartView.width
+//            val rect = Rect("anychart.math.rect(5, 0, ${width}, ${height})")
+            val rect = Rect("anychart.math.rect(0, 0, 600, 600)") // todo
+            val gradientFill = LinearGradientFill(
+                90,
+                "['.1 green', '.4 yellow', '.7 red']",
+                rect,
+                1)
+
+            series.color(gradientFill)
+
+
+            val yMax = Math.max(9, maxKp )
+
+            columnChart.yScale().maximum(yMax)
+
+            anyChartView.setProgressBar(chartProgressBar)
             anyChartView.setChart(columnChart)
 
-            Log.d(TAG, "SEtting chart  data to ${reportData}")
+            Log.d(TAG, "Setting chart  data to ${reportData}")
         }
 
     }
@@ -48,12 +76,6 @@ class ChartFragment : Fragment() {
         this.reportList = data
         drawChart()
 
-
-
-
-     //   } else {
-        //   Log.d(TAG, "No view yet!")
-      //  }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +91,7 @@ class ChartFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_chart, container, false)
 
          anyChartView = v.findViewById(R.id.chart) as AnyChartView
+        chartProgressBar = v.findViewById(R.id.chart_progress)
         drawChart()
         return v
     }
