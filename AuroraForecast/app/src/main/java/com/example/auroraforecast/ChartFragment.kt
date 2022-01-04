@@ -7,48 +7,58 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import com.anychart.AnyChart
 import com.anychart.AnyChartView
-import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.graphics.vector.*
-import com.anychart.palettes.RangeColors
-import java.util.Collections.max
 
 private const val TAG = "CHART FRAGMENT"
 
 class ChartFragment : Fragment() {
 
-    var reportList: List<Report> = listOf()
-    lateinit var anyChartView: AnyChartView
+    private var reportList: List<Report> = listOf()
+    private lateinit var anyChartView: AnyChartView
     lateinit var chartProgressBar: ProgressBar
-//    private lateinit var view: View
 
-    fun drawChart() {
+    private fun drawChart() {
 
         if (reportList.isNotEmpty() && this::anyChartView.isInitialized) {
+
+            // Create the chart. A column chart, AKA bar chart
             val columnChart = AnyChart.column()
 
-            val reportData = reportList.map { rep ->
-                ValueDataEntry(rep.stringDate, rep.kp)
+            // Convert the list of reports into ValueDataEntry objects to be used by the chart library
+            val reportData = reportList.map { report ->
+                ValueDataEntry(report.stringDate, report.kp)
             }
 
-            val maxKp = reportList.maxOf { rep -> rep.kp}
-            Log.d(TAG, "Max KP is $maxKp")
-
+            // Assign data to the chart
             columnChart.data(reportData)
 
-          //  val rangeColors = RangeColors("#446622")
-//            columnChart.palette(rangeColors)
+            // Label the x and y axis.  There can be many axes in a chart
+            // so need to specify modifying the first x and first y axis.
+            columnChart.xAxis(0).title("Date")
+            columnChart.yAxis(0).title("KP")
 
+            // KP typically ranges from 0 to 9 unless there's some wild storm
+            // Set the chart to always have a max of 9 so the bars are always
+            // relative to the maximum possible.
+            columnChart.yScale().maximum(9)
+
+            // Series is a set of data displayed on the chart. There's only one on this
+            // chart, but a chart can potentially display many series. The series is
+            // created from the reportDate generated earlier.
             val series = columnChart.getSeries(0)
-//            val fill = SolidFill("440044", 1)
 
+            // Name the series, shown when clicking on a bar
+            series.name("KP value")
+
+            // Color the chart with a gradient green -> yellow -> red
             val height = anyChartView.height
             val width = anyChartView.width
-//            val rect = Rect("anychart.math.rect(5, 0, ${width}, ${height})")
-            val rect = Rect("anychart.math.rect(0, 0, 600, 600)") // todo
+            // The gradient area, todo
+            val rect = Rect("anychart.math.rect(0, 0, 600, 600)")
+
             val gradientFill = LinearGradientFill(
                 90,
                 "['.1 green', '.4 yellow', '.7 red']",
@@ -57,58 +67,50 @@ class ChartFragment : Fragment() {
 
             series.color(gradientFill)
 
-
-            val yMax = Math.max(9, maxKp )
-
-            columnChart.yScale().maximum(yMax)
-
+            // Connect the progress bar to the chart, so the progress bar - actually a spinner
+            // is displayed while the chart is loading, and then is replaced with the chart
+            // once the chart is ready.
             anyChartView.setProgressBar(chartProgressBar)
+
+            // Set the chart view's chart.
             anyChartView.setChart(columnChart)
 
-            Log.d(TAG, "Setting chart  data to ${reportData}")
         }
-
     }
+
 
     fun updateData(data: List<Report>){
-
-        Log.d(TAG, "Update the chart data ${data.size}")
         this.reportList = data
         drawChart()
-
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        Log.d(TAG, "onCreateView")
-        val v = inflater.inflate(R.layout.fragment_chart, container, false)
-
-         anyChartView = v.findViewById(R.id.chart) as AnyChartView
-        chartProgressBar = v.findViewById(R.id.chart_progress)
+        val view = inflater.inflate(R.layout.fragment_chart, container, false)
+        // Locate the chart and progress bar in this view
+        anyChartView = view.findViewById(R.id.chart) as AnyChartView
+        chartProgressBar = view.findViewById(R.id.chart_progress)
         drawChart()
-        return v
+        return view
     }
 
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
+         * This fragment has no parameters so this method is
           * @return A new instance of fragment ChartFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance() =
-            ChartFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
+        fun newInstance() = ChartFragment()
     }
 }

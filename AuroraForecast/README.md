@@ -1,5 +1,7 @@
 URL: https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json
 
+Notes on setting up the app
+
 Add Volley to App's build.gradle   https://developer.android.com/training/volley
 Add Internet permission to manifest
 
@@ -7,7 +9,6 @@ WorkManager to schedule tasks
 https://developer.android.com/topic/libraries/architecture/workmanager
 
 New string channel_name
-
 
 https://www.flaticon.com/free-icon/aurora_721146
 
@@ -28,9 +29,8 @@ Chart - write the XML for the chart page
 
 Issues and TODOs
 
-* notification icon not showing
 * use a listenable worker instead of a worker to handle success/failure
-
-
+* fix chart gradient
+* better message for user if failure contacting API
 
 Kotlin co-routines?

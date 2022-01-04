@@ -14,15 +14,9 @@ class ReportRecyclerAdapter(var dataSet: List<Report> ):
     RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val dateTV: TextView
-        val kpTV: TextView
-        val statusTV: TextView
-
-        init {
-            dateTV = view.findViewById(R.id.dateTextView)
-            kpTV = view.findViewById(R.id.kpTextView)
-            statusTV = view.findViewById(R.id.statusTextView)
-        }
+        val dateTV: TextView = view.findViewById(R.id.dateTextView)
+        val kpTV: TextView = view.findViewById(R.id.kpTextView)
+        val statusTV: TextView = view.findViewById(R.id.statusTextView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,25 +26,32 @@ class ReportRecyclerAdapter(var dataSet: List<Report> ):
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.dateTV.text = dataSet[position].stringDate
+        val record = dataSet[position]
 
-        val kp = dataSet[position].kp
+        holder.dateTV.text = record.stringDate
+
+        val kp = record.kp
         holder.kpTV.text = "$kp"
 
-        if (kp < 3) {
-            holder.kpTV.setTextColor(ContextCompat.getColor(holder.kpTV.context, R.color.low))
-        } else if (kp < 5) {
-            holder.kpTV.setTextColor(ContextCompat.getColor(holder.kpTV.context, R.color.medium))
+        // Change the color of the KP number's text based on the numeric value
+
+        when (kp) {
+            in 0..3 -> {
+                holder.kpTV.setTextColor(ContextCompat.getColor(holder.kpTV.context, R.color.low))
+            }
+            in 4..6 -> {
+                holder.kpTV.setTextColor(ContextCompat.getColor(holder.kpTV.context, R.color.medium))
+            }
+            else -> {
+                holder.kpTV.setTextColor(ContextCompat.getColor(holder.kpTV.context, R.color.high))
+            }
         }
-        else {
-            holder.kpTV.setTextColor(ContextCompat.getColor(holder.kpTV.context, R.color.high))
-        }
-        holder.statusTV.text = dataSet[position].status
+
+        holder.statusTV.text = record.status
     }
 
     override fun getItemCount(): Int {
-        Log.d(TAG, "Get item count ${dataSet.size}")
-       return dataSet.size
+        return dataSet.size
     }
 
 }

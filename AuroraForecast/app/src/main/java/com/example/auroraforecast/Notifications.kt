@@ -23,8 +23,9 @@ class Notifications(val context: Context) {
 
           val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
-          var notification = NotificationCompat.Builder(context, CHANNEL_ID)
-               .setSmallIcon(R.drawable.aurora_notification)
+          // Create the notification using the builder pattern.
+          val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+               .setSmallIcon(R.drawable.aurora_notification)  // monochrome image required or a white box will be used
                .setContentTitle("Aurora Forecast")
                .setContentText(message)
                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -32,17 +33,25 @@ class Notifications(val context: Context) {
                .setAutoCancel(true)  // remove notification when user taps it
                .build()
 
-          val notificationId = 1234  // remember this if need to modify notification later
+          val notificationId = 1234  // Set to a value of your choice. Will need to know this if need to modify notification later
 
-          with (NotificationManagerCompat.from(context)) {
-               notify(notificationId, notification)
-          }
+          // Ask notification manager to send notification
+          val notificationManager = NotificationManagerCompat.from(context)
+          notificationManager.notify(notificationId, notification)
+
+          // Alternative Kotlin recommended way to send notification, using with scope function
+//          with (NotificationManagerCompat.from(context)) {
+//               notify(notificationId, notification)
+//          }
 
      }
 
      fun createNotificationChannel() {
 
           // Only needed for newer Android.
+          // Used by app and Android system to have more control over notifications from
+          // different apps, and different types of notifications from apps, for example,
+          // controlling the different types of notifications a user wants to receive and not receive.
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                val name = context.getString(R.string.channel_name)
                val descriptionText = context.getString(R.string.channel_description)
@@ -55,5 +64,4 @@ class Notifications(val context: Context) {
                notificationManager.createNotificationChannel(channel)
           }
      }
-
 }

@@ -12,15 +12,17 @@ import androidx.viewpager2.widget.ViewPager2
 
 
 private const val NUM_PAGES = 2
-private var recordListFragment: RecordListFragment = RecordListFragment.newInstance()
-private var chartFragment: ChartFragment = ChartFragment.newInstance()
 
 class MainActivity : AppCompatActivity() {
 
-    //lateinit var reportsList: RecyclerView
+    private var recordListFragment: RecordListFragment = RecordListFragment.newInstance()
+    private var chartFragment: ChartFragment = ChartFragment.newInstance()
+    
     private lateinit var viewPager: ViewPager2
 
-    class TableChartPagerAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
+    // An inner class can access properties of the enclosing class.
+    // A nested class (without the inner keyword), cannot.
+    inner class TableChartPagerAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
 
         override fun getItemCount(): Int { return NUM_PAGES }
 
@@ -43,22 +45,21 @@ class MainActivity : AppCompatActivity() {
 
         Notifications(this).createNotificationChannel()
 
-        ForecastWorkRequest(this).start()
+        ForecastWorkRequestManager(this).start()
 
-        ForecastApiRequest(this).requestAurora(  { reportList ->  // rename the default it parameter
-//           // recordListFragment.reportList =
-            recordListFragment.updateView(reportList)
-//            chartFragment.reportList = reportList
-            chartFragment.updateData(reportList)
-
-
-        }, { error ->
-            showError("Unable to fetch aurora info")
-        })
+        ForecastApiRequest(this).requestAurora(
+            { reportList ->
+                recordListFragment.updateView(reportList)
+                chartFragment.updateData(reportList)
+            },
+            { error ->
+                showError("Unable to fetch aurora info")
+            }
+        )
 
         val stopButton: Button = findViewById(R.id.stop)
         stopButton.setOnClickListener {
-            ForecastWorkRequest(this).stop()
+            ForecastWorkRequestManager(this).stopAll()
         }
     }
 

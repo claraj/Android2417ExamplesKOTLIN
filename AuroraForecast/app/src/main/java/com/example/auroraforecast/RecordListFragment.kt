@@ -27,7 +27,7 @@ class RecordListFragment : Fragment() {
         this.reportList = reportList
 
         if (this::reportsListRecycler.isInitialized && this::reportList.isInitialized) {
-            Toast.makeText(context, "update list", Toast.LENGTH_LONG).show()
+            //Toast.makeText(context, "update list", Toast.LENGTH_LONG).show()
             Log.d(TAG, "new list with elements count: ${reportList.size}")
 
             val recycler = ReportRecyclerAdapter(reportList)
@@ -49,10 +49,6 @@ class RecordListFragment : Fragment() {
 
         reportsListRecycler = view.findViewById(R.id.reports)
         reportsListRecycler.layoutManager = LinearLayoutManager(context)
-//        val tmp = listOf<Report>()
-        val tmp = listOf(Report("2021-12-27 03:00:00", 2, "Observed"))
-
-        //reportsListRecycler.adapter = ReportRecyclerAdapter(dataSet = tmp)
 
         Log.d(TAG, "Recycler has been initialized")
 
