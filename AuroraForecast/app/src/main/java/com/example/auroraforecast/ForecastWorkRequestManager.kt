@@ -35,6 +35,9 @@ class ForecastWorkRequestManager(val context: Context) {
     }
 
     fun stopAll() {
+
+        // Unused in this application, but included for reference
+
         Log.d(TAG, "Stopping all tasks")
         WorkManager.getInstance(this.context).cancelAllWork()
     }

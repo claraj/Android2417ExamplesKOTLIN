@@ -8,30 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 
 private const val TAG = "REPORT LIST FRAGMENT"
 
 class ReportListFragment : Fragment() {
 
-    lateinit var reportsListRecycler: RecyclerView
-    lateinit var reportList: List<Report>
+    private lateinit var reportsListRecycler: RecyclerView
+    private lateinit var auroraViewModel: AuroraViewModel
 
-    fun updateView(reportList: List<Report>) {
-
-        this.reportList = reportList
-
-        if (this::reportsListRecycler.isInitialized && this::reportList.isInitialized) {
-            Log.d(TAG, "new list with elements count: ${reportList.size}")
-            val recycler = ReportRecyclerAdapter(reportList)
-            reportsListRecycler.adapter = recycler
-        } else {
-            Log.d(TAG, "view not initialized")
-        }
+    companion object {
+        @JvmStatic
+        fun newInstance() = ReportListFragment()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,17 +33,38 @@ class ReportListFragment : Fragment() {
         reportsListRecycler = view.findViewById(R.id.reports)
         reportsListRecycler.layoutManager = LinearLayoutManager(context)
 
-        Log.d(TAG, "Recycler has been initialized")
-
-        if (this::reportList.isInitialized) {
-            updateView(reportList)
-        }
-
         return view
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = ReportListFragment()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Once the view has been set up, configure the ViewModel to get data for the view.
+        auroraViewModel = ViewModelProvider(this).get(AuroraViewModel::class.java)
+        registerObserver()
+    }
+
+    private fun registerObserver() {
+
+        val reportsObserver: Observer<ReportWrapper> = Observer { reportWrapper ->
+            if (reportWrapper.reports != null) {
+                updateList(reportWrapper.reports)}
+            else if (reportWrapper.error != null) {
+                ViewUtil.showError(requireContext(),"Error fetching aurora data")
+            }
+        }
+
+        auroraViewModel.reports.observe(viewLifecycleOwner, reportsObserver)
+    }
+
+    private fun updateList(reportList: List<Report>) {
+
+        if (this::reportsListRecycler.isInitialized) {
+            Log.d(TAG, "New list with elements count: ${reportList.size}")
+            val recycler = ReportRecyclerAdapter(reportList)
+            reportsListRecycler.adapter = recycler
+        } else {
+            Log.d(TAG, "View not initialized")
+        }
     }
 }

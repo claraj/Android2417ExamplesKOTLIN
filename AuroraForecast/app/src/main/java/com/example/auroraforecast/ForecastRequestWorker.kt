@@ -14,7 +14,7 @@ class ForecastRequestWorker(val context: Context, workerParameters: WorkerParame
 
         Log.d(TAG, "Do work starting")
 
-            ForecastApiRequest(context).requestAurora(
+            ForecastApiRequest().requestAurora(
                 { reports ->
                     Log.d(TAG, "The worker called the api successfully")
                     notifyIfAuroraLikely(reports)

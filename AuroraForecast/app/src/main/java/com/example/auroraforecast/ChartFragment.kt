@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.anychart.AnyChart
 import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.ValueDataEntry
@@ -16,19 +18,59 @@ private const val TAG = "CHART FRAGMENT"
 
 class ChartFragment : Fragment() {
 
-    private var reportList: List<Report> = listOf()
     private lateinit var anyChartView: AnyChartView
-    lateinit var chartProgressBar: ProgressBar
+    private lateinit var chartProgressBar: ProgressBar
+    private lateinit var auroraViewModel: AuroraViewModel
 
-    private fun drawChart() {
+    companion object {
+        @JvmStatic
+        fun newInstance() = ChartFragment()
+    }
 
-        if (reportList.isNotEmpty() && this::anyChartView.isInitialized) {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_chart, container, false)
+        // Locate the chart and progress bar in this view
+        anyChartView = view.findViewById(R.id.chart) as AnyChartView
+        chartProgressBar = view.findViewById(R.id.chart_progress)
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Once the view has been set up, configure the ViewModel to get data for the view.
+        auroraViewModel = ViewModelProvider(this).get(AuroraViewModel::class.java)
+        registerObserver()
+    }
+
+    private fun registerObserver() {
+
+        val reportsObserver: Observer<ReportWrapper> = Observer { reportWrapper ->
+            if (reportWrapper.reports != null) {
+                drawChart(reportWrapper.reports)}
+            else if (reportWrapper.error != null) {
+                ViewUtil.showError(requireContext(),"Error fetching aurora data")
+            }
+        }
+
+        auroraViewModel.reports.observe(viewLifecycleOwner, reportsObserver)
+
+    }
+
+    private fun drawChart(reports: List<Report>) {
+
+        if (reports.isNotEmpty()) {
 
             // Create the chart. A column chart, AKA bar chart
             val columnChart = AnyChart.column()
 
             // Convert the list of reports into ValueDataEntry objects to be used by the chart library
-            val reportData = reportList.map { report ->
+            val reportData = reports.map { report ->
                 ValueDataEntry(report.stringDate, report.kp)
             }
 
@@ -76,41 +118,5 @@ class ChartFragment : Fragment() {
             anyChartView.setChart(columnChart)
 
         }
-    }
-
-
-    fun updateData(data: List<Report>){
-        this.reportList = data
-        drawChart()
-    }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_chart, container, false)
-        // Locate the chart and progress bar in this view
-        anyChartView = view.findViewById(R.id.chart) as AnyChartView
-        chartProgressBar = view.findViewById(R.id.chart_progress)
-        drawChart()
-        return view
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         * This fragment has no parameters so this method is
-          * @return A new instance of fragment ChartFragment.
-         */
-        @JvmStatic
-        fun newInstance() = ChartFragment()
     }
 }
