@@ -16,7 +16,9 @@ private const val TAG = "REPORT LIST FRAGMENT"
 class ReportListFragment : Fragment() {
 
     private lateinit var reportsListRecycler: RecyclerView
-    private lateinit var auroraViewModel: AuroraViewModel
+    private val auroraViewModel: AuroraViewModel by lazy {
+        ViewModelProvider(this).get(AuroraViewModel::class.java)
+    }
 
     companion object {
         @JvmStatic
@@ -33,16 +35,11 @@ class ReportListFragment : Fragment() {
         reportsListRecycler = view.findViewById(R.id.reports)
         reportsListRecycler.layoutManager = LinearLayoutManager(context)
 
+        registerObserver()
+
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Once the view has been set up, configure the ViewModel to get data for the view.
-        auroraViewModel = ViewModelProvider(this).get(AuroraViewModel::class.java)
-        registerObserver()
-    }
 
     private fun registerObserver() {
 
