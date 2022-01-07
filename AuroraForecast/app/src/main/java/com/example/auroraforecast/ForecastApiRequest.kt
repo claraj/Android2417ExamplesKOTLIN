@@ -12,7 +12,7 @@ import org.json.JSONObject
 
 private const val TAG = "FORECAST API REQUEST"
 
-class ForecastApiRequest() {
+class ForecastApiRequest {
 
     private var queue = Volley.newRequestQueue(App.context)
     private val url = "https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json"
@@ -40,11 +40,13 @@ class ForecastApiRequest() {
             },
 
             { error ->
-                Log.e(TAG, "Error making request to API", error)
+                Log.e(TAG, "Error making request to API because $error", error)
+                // Log.e(Tag, msg, error) logs a stack trace for the error, with one exception,
+                // UnknownHostException errors don't print stack traces, so include the error message in the log message.
                 failure(error)
             })
 
-        queue.add(jsonForecast)
+        queue.add(jsonForecast)  // Don't forget!
 
     }
 

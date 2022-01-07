@@ -8,8 +8,6 @@ private const val TAG = "AURORA APPLICATION"
 
 class App: Application() {
 
-    private lateinit var context: Context
-
     companion object {
         lateinit var context: Context
     }
