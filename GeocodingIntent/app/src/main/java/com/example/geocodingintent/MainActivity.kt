@@ -41,11 +41,11 @@ class MainActivity : AppCompatActivity() {
         val geocoder = Geocoder(this)
         try {
             val addresses = geocoder.getFromLocationName(placeName, 1)
-            if (addresses.isEmpty()) {
-                Toast.makeText(this, "No places found with this name", Toast.LENGTH_LONG).show()
+            val address = addresses.firstOrNull()
+            if (address == null) {
+                Toast.makeText(this, getString(R.string.no_places_found_message), Toast.LENGTH_LONG).show()
             } else {
                 // Create and use intent to launch map app to show location of place
-                val address = addresses[0]
                 Log.d(TAG, "First place address $address")
                 val geoUriString = "geo:${address.latitude},${address.longitude}"
                 Log.d(TAG, "Geo URI is $geoUriString")
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         } catch (e: IOException) {
             // This error may be thrown when geocoding, if the device does not have an internet connection
             Log.e(TAG, "Unable to geocode $placeName", e)
-            Toast.makeText(this, "Sorry, unable to find place. Are you online?",
+            Toast.makeText(this, getString(R.string.not_online_cannot_geocode_error),
                 Toast.LENGTH_LONG).show()
             return;
         }
