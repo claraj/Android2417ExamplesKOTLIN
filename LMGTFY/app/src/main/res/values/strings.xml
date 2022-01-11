@@ -4,5 +4,7 @@
     <string name="instructions">Type the text to search for</string>
     <string name="search_button_text">Let me Google that for you!</string>
     <string name="search_display_text">Searching for %1$s</string>
+    <string name="no_text_error_message">Enter some text to search for</string>
+    <string name="searching_confirmation_message">Searching for %1$s</string>
 </resources>
 

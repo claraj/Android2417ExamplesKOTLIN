@@ -8,13 +8,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.widget.doOnTextChanged
-
+import androidx.core.widget.doAfterTextChanged
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var searchText: EditText;
-    private lateinit var searchButton: Button;
+    private lateinit var searchText: EditText
+    private lateinit var searchButton: Button
     private lateinit var searchConfirmation: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,31 +24,42 @@ class MainActivity : AppCompatActivity() {
         searchButton = findViewById(R.id.search_button)
         searchConfirmation = findViewById(R.id.show_search_text)
 
-        searchText.doOnTextChanged { charSequence: CharSequence?, start: Int, before: Int, count: Int ->
-            if (charSequence.isNullOrBlank()) {
-                searchConfirmation.text = "..."
-            } else {
-                searchConfirmation.text = getString(R.string.search_display_text, charSequence)
-            }
+        searchText.doAfterTextChanged {
+            echoUserSearchTerm()
         }
 
         searchButton.setOnClickListener {
-            val searchText = searchText.text
-            if (searchText.isNullOrEmpty()) {
-                // show Toast to tell user to enter some text
-                Toast.makeText(this, "Enter some text to search for", Toast.LENGTH_SHORT).show()
-            } else {
-                // show Toast confirmation
-                Toast.makeText(this, "Searching for $searchText", Toast.LENGTH_LONG).show()
-                // launch web browser to search Google
-                val webAddress = "https://www.google.com/search?q=$searchText"
-                val uri = Uri.parse(webAddress)
-                val browserIntent = Intent(Intent.ACTION_VIEW, uri)
-                startActivity(browserIntent)
-            }
+            launchSearch()
+        }
+    }
+
+    private fun launchSearch() {
+        val text = searchText.text
+        if (text.isBlank()) {
+            // show user a message to enter text
+            Toast.makeText(this, getString(R.string.no_text_error_message), Toast.LENGTH_SHORT).show()
+        } else {
+            // show a Toast confirmation
+            Toast.makeText(this, getString(R.string.searching_confirmation_message, text), Toast.LENGTH_LONG).show()
+            // launch web browser to search Google.
+            googleSearch(text.toString())
+        }
+    }
+
+    private fun googleSearch(text: String) {
+        val webAddress = "https://www.google.com/search?q=$text"
+        val uri = Uri.parse(webAddress)
+        val browserIntent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(browserIntent)
+    }
+
+    private fun echoUserSearchTerm() {
+        val text = searchText.text
+        if (text.isNotBlank()) {
+            searchConfirmation.text = getString(R.string.search_display_text, text)
+        } else {
+            searchConfirmation.text = getString(R.string.search_display_text, "...")
         }
     }
 }
-
-
 
