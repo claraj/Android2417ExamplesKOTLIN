@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         try {
             val addresses = geocoder.getFromLocationName(placeName, 1)
             val address = addresses.firstOrNull()
+
+            // The classic way - an if statement, check if address is null
             if (address == null) {
                 Toast.makeText(this, getString(R.string.no_places_found_message), Toast.LENGTH_LONG).show()
             } else {
@@ -53,6 +55,31 @@ class MainActivity : AppCompatActivity() {
                 val mapIntent = Intent(Intent.ACTION_VIEW, geoUri)
                 startActivity(mapIntent)
             }
+
+            /*
+
+            // An alternative Kotlin-esque way, using scope functions, and ? and :?
+            // The code in the first lambda runs if the address is not null, the code
+            // in the second lambda, using the run function, runs if the address is null.
+            // The syntax uses the null safety and Elvis operators,
+            // and the let and run scope functions.
+            // variable?.let {} ?: run {}
+
+            address?.let {
+                // Create and use intent to launch map app to show location of place
+                Log.d(TAG, "First place address $address")
+                val geoUriString = "geo:${address.latitude},${address.longitude}"
+                Log.d(TAG, "Geo URI is $geoUriString")
+                val geoUri = Uri.parse(geoUriString)
+                val mapIntent = Intent(Intent.ACTION_VIEW, geoUri)
+                startActivity(mapIntent)
+            } ?: run {
+                Toast.makeText(this, getString(R.string.no_places_found_message), Toast.LENGTH_LONG).show()
+            }
+
+             */
+
+
         } catch (e: IOException) {
             // This error may be thrown when geocoding, if the device does not have an internet connection
             Log.e(TAG, "Unable to geocode $placeName", e)
