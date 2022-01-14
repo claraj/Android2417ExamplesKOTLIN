@@ -41,6 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+        android:background="@drawable/text_view_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/controls_guideline"
