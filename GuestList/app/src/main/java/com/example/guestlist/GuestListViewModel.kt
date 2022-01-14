@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class GuestListViewModel: ViewModel() {
 
-    val guestNames: MutableList<String> = mutableListOf()
+    private val guestNames = mutableListOf<String>()
 
     fun getSortedGuestNames(): List<String> {
         return guestNames.sorted()

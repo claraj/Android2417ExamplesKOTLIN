@@ -11,8 +11,8 @@ const val LAST_GUEST_NAME_KEY = "last-guest-name-bundle-key"
 
 class MainActivity : AppCompatActivity() {
 
-//    var guestNames: MutableList<String> = mutableListOf()
-    val guestListViewModel: GuestListViewModel by lazy {
+    // var guestNames: MutableList<String> = mutableListOf()
+    private val guestListViewModel: GuestListViewModel by lazy {
         ViewModelProvider(this).get(GuestListViewModel::class.java)
     }
 
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         updateGuestList()
     }
 
-    fun addNewGuest() {
+    private fun addNewGuest() {
         val newGuestName = newGuestEditText.text.toString()
         if (newGuestName.isNotBlank()) {
             // guestNames.add(newGuestName)
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun updateGuestList() {
+    private fun updateGuestList() {
         val guestDisplay = guestListViewModel.getSortedGuestNames().joinToString(separator="\n")
         guestList.text = guestDisplay
     }
