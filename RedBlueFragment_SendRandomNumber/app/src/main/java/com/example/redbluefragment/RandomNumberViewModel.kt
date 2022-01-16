@@ -1,4 +1,7 @@
 package com.example.redbluefragment
 
-class RandomNumberViewModel {
+import androidx.lifecycle.ViewModel
+
+class RandomNumberViewModel: ViewModel() {
+    var randomNumber = 0
 }
