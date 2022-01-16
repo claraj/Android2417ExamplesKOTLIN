@@ -14,22 +14,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // First version - swapping fragments
+        // Add listener to the FrameLayout - effectively the whole screen
+        // since there are no other listeners
         containerView = findViewById(R.id.fragment_container)
         containerView.setOnClickListener {
             swapFragment()
         }
 
+        // Display the red fragment when the app loads
         val redFragment = RedFragment.newInstance()
-
-        supportFragmentManager.setFragmentResultListener("randomNumberGenerated", this) {
-            requestKey, bundle ->
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, BlueFragment(), "BLUE")
-                .addToBackStack("BLUE")
-                .commit()
-        }
-
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container, redFragment, "RED")
             .commit()
