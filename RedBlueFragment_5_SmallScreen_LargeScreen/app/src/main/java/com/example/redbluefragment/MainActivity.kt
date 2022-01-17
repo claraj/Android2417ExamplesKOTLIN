@@ -3,10 +3,7 @@ package com.example.redbluefragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
-import androidx.window.layout.WindowMetricsCalculator
-
 
 const val RANDOM_NUMBER_GENERATED = "com.example.redbluefragment.RANDOM_NUMBER_GENERATED"
 
