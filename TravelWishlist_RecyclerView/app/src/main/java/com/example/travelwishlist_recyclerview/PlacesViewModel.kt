@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class PlacesViewModel: ViewModel() {
 
+    // Example data added for testing. You may modify or remove.
     private val placeNames = mutableListOf<Place>(Place("Toronto"), Place("Patagonia, Chile"), Place("Auckland, NZ"))
 
     fun getPlaces(): List<Place> {
@@ -26,18 +27,17 @@ class PlacesViewModel: ViewModel() {
             return -1
         }
 
-        /*
-        position?.let {  pos ->  // let lambda is called if position is not null. Within the lambda, position is Int not Int?
-            placeNames.add(pos, place)
+/*
+        position?.let {  // let lambda is called if position is not null. Within the lambda, position is Int not Int?
+            placeNames.add(position, place)
             return position
-        }.run {  // run lambda is called if position is null.
+        } ?: run {  // run lambda is called if position is null.
             placeNames.add(place)
             return placeNames.size - 1
         }
-         */
+*/
 
-
-        // Could also say,
+        // Equivalent to,
         return if (position != null) {
             placeNames.add(position, place)
             position
@@ -52,28 +52,17 @@ class PlacesViewModel: ViewModel() {
     }
 
     fun movePlace(from: Int, to: Int) {
-
         // Remove place and save value
         val place = placeNames.removeAt(from)
-
-        // if the place is moving up the list - from is greater than to -
-        // or, if it is staying in the same position,
-        // add the place in the to position.
-        if (from >= to) {
-            placeNames.add(to, place)
-        }
-        // if the place is moving down the list, for example,
-        // moving from element 1 (b) to 3 (between c and d)
-        //  a b c d e
-        // When element 1 is removed, the list is now
-        // a c d e
-        //  the target location is 2, so must subtract 1 from to when adding.
-        else {
-            placeNames.add(to-1, place)
-        }
+        // Insert into list at new position
+        placeNames.add(to, place)
     }
 
     fun placeAt(position: Int): Place {
         return placeNames[position]
+    }
+
+    fun clear() {
+        placeNames.clear()
     }
 }
