@@ -15,9 +15,9 @@ class ReportRecyclerAdapter(var dataSet: List<Report> ):
     RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        var dateTV: TextView = view.findViewById(R.id.dateTextView)
-        var kpTV: TextView = view.findViewById(R.id.kpTextView)
-        var statusTV: TextView = view.findViewById(R.id.statusTextView)
+        val dateTV: TextView = view.findViewById(R.id.dateTextView)
+        val kpTV: TextView = view.findViewById(R.id.kpTextView)
+        val statusTV: TextView = view.findViewById(R.id.statusTextView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
