@@ -29,22 +29,14 @@ class MainActivity : AppCompatActivity() {
         // Convert the string to one of the enum values
         currentFragment = Fragments.valueOf(currentFragmentString)
 
-
         val deviceSmallestWidth = resources.configuration.smallestScreenWidthDp
-        Log.d("MAIN_ACTIVITY", "Device smallest width $deviceSmallestWidth")
 
-        screenWidth = if (deviceSmallestWidth < 600) {
-            WindowWidth.SMALL
-        } else {
-            WindowWidth.LARGE
-        }
-
-        Log.d("MAIN_ACTIVITY", "Screen width $screenWidth")
-
-        if (screenWidth == WindowWidth.SMALL) {
+        if (deviceSmallestWidth < 600) {
+            screenWidth = WindowWidth.SMALL
             displaySwappableFragments()
         } else {
             displayBothFragments()
+            screenWidth = WindowWidth.LARGE
         }
     }
 
@@ -76,7 +68,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayBothFragments() {
-
         val redFragment = RedFragment.newInstance()
         supportFragmentManager.beginTransaction()
             .add(R.id.red_fragment_container, redFragment, "RED")
@@ -86,15 +77,11 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .add(R.id.blue_fragment_container, blueFragment, "BLUE")
             .commit()
-
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-
-        if (screenWidth == WindowWidth.SMALL) {
-            currentFragment = Fragments.RED
-        }
+        currentFragment = Fragments.RED
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
