@@ -7,13 +7,15 @@ import androidx.lifecycle.ViewModelProvider
 
 const val RANDOM_NUMBER_GENERATED = "com.example.redbluefragment.RANDOM_NUMBER_GENERATED"
 
+const val CURRENT_FRAGMENT_BUNDLE_KEY = "com.example.redbluefragment.CURRENT_FRAGMENT"
+
+enum class Fragments { RED, BLUE }
+
 enum class WindowWidth { SMALL, LARGE }
 
 class MainActivity : AppCompatActivity() {
 
-    private val randomNumberViewModel: RandomNumberViewModel by lazy {
-        ViewModelProvider(this).get(RandomNumberViewModel::class.java)
-    }
+    private var currentFragment = Fragments.RED
 
     // Assume phone, change if needed
     private var screenWidth: WindowWidth = WindowWidth.SMALL
@@ -21,6 +23,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Read current fragment, if any, from saved instance state. If no instance state, assume "RED"
+        val currentFragmentString = savedInstanceState?.getString(CURRENT_FRAGMENT_BUNDLE_KEY) ?: "RED"
+        // Convert the string to one of the enum values
+        currentFragment = Fragments.valueOf(currentFragmentString)
+
 
         val deviceSmallestWidth = resources.configuration.smallestScreenWidthDp
         Log.d("MAIN_ACTIVITY", "Device smallest width $deviceSmallestWidth")
@@ -49,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         // If blue should be shown, add it "on top" of red so the back button
         // works as intended
-        if (randomNumberViewModel.showBlueFragment) {
+        if (currentFragment == Fragments.BLUE) {
             val blueFragment = BlueFragment.newInstance()
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, blueFragment, "BLUE")
@@ -63,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack("BLUE")
                 .commit()
 
-            randomNumberViewModel.showBlueFragment = true
+            currentFragment = Fragments.BLUE
         }
     }
 
@@ -85,8 +93,13 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
 
         if (screenWidth == WindowWidth.SMALL) {
-            randomNumberViewModel.showBlueFragment = false
+            currentFragment = Fragments.RED
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(CURRENT_FRAGMENT_BUNDLE_KEY, currentFragment.toString())
     }
 }
 
