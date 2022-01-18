@@ -27,23 +27,18 @@ class PlacesViewModel: ViewModel() {
             return -1
         }
 
-/*
-        position?.let {  // let lambda is called if position is not null. Within the lambda, position is Int not Int?
-            placeNames.add(position, place)
-            return position
-        } ?: run {  // run lambda is called if position is null.
-            placeNames.add(place)
-            return placeNames.size - 1
-        }
-*/
-
-        // Equivalent to,
         return if (position != null) {
+            // position is converted to an Int and will not be null
+            // Kotlin does a "smart cast" on the position value from
+            // Int? to Int, due to the null check
+            // An if-statement null check is appropriate for parameters
+            // which are vals, but can be nullable types
             placeNames.add(position, place)
             position
         } else {
+            // position remains an Int? here and will be null
             placeNames.add(place)
-            placeNames.size - 1
+            placeNames.lastIndex
         }
     }
 
