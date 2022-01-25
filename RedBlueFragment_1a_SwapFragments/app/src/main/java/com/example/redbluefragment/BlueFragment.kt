@@ -1,4 +1,4 @@
-package com.example.redbluefragment_swapfragment
+package com.example.redbluefragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,27 +8,39 @@ import android.view.ViewGroup
 
 /**
  * A simple [Fragment] subclass.
- * Use the [RedFragment.newInstance] factory method to
+ * Use the [BlueFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class RedFragment : Fragment() {
+class BlueFragment : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_red, container, false)
+        return inflater.inflate(R.layout.fragment_blue, container, false)
     }
-
 
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
+         *
+         * @return A new instance of fragment BlueFragment.
          */
+
         @JvmStatic
-        fun newInstance() = RedFragment()
+        fun newInstance() =
+            BlueFragment().apply {
+                arguments = Bundle().apply {
+
+                }
+            }
     }
 }
-
