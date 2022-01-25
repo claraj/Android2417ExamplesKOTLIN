@@ -6,19 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-
 /**
  * A simple [Fragment] subclass.
  * Use the [RedFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class RedFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,10 +28,6 @@ class RedFragment : Fragment() {
          * this fragment using the provided parameters.
          */
         @JvmStatic
-        fun newInstance() =
-            RedFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
+        fun newInstance() = RedFragment()
     }
 }

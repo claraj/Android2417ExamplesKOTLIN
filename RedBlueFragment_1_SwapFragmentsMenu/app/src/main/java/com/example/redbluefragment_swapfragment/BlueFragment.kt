@@ -14,12 +14,6 @@ import android.view.ViewGroup
  */
 class BlueFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,11 +31,6 @@ class BlueFragment : Fragment() {
          */
 
         @JvmStatic
-        fun newInstance() =
-            BlueFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
+        fun newInstance() = BlueFragment()
     }
 }
