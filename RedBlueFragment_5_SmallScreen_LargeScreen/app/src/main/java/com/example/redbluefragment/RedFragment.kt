@@ -15,18 +15,16 @@ import kotlin.random.Random
  * Use the [RedFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+const val RANDOM_NUMBER_GENERATED = "com.example.redbluefragment.RANDOM_NUMBER_GENERATED"
+
+
 class RedFragment : Fragment() {
 
     private lateinit var sendRandomNumberButton: Button
 
     private val randomNumberViewModel: RandomNumberViewModel by lazy {
         ViewModelProvider(requireActivity()).get(RandomNumberViewModel::class.java)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
     }
 
     override fun onCreateView(
@@ -58,10 +56,6 @@ class RedFragment : Fragment() {
          * this fragment using the provided parameters.
          */
         @JvmStatic
-        fun newInstance() =
-            RedFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
+        fun newInstance() = RedFragment()
     }
 }
