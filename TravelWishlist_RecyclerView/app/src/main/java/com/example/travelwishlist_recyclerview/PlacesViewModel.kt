@@ -13,13 +13,15 @@ class PlacesViewModel: ViewModel() {
 
     fun addNewPlace(place: Place, position: Int? = null): Int {
 
-        /** If the place's name is not already in the list, adds it to the list.
+        /**
+         * If a place name is in the list, regardless of case, return -1.
+         *
+         * If the place's name is not already in the list, adds it to the list.
          * If position is not specified, add at that position.
          * Otherwise, add place to the end.
          *
-         * Returns the position that the new place was added
+         * Returns the position that the new place was added.
          *
-         * If a place name is in the list, return -1.
          * */
 
         if (placeNames.any { it.name.uppercase() == place.name.uppercase() }) {

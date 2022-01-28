@@ -19,7 +19,6 @@ class PlaceRecyclerAdapter(private val places: List<Place>, private val onListIt
         fun bind(place: Place, onListItemClickedListener: OnListItemClickedListener){
             val placeNameText: TextView = view.findViewById(R.id.place_name)
             placeNameText.text = place.name
-
             val dateCreatedOnText = view.findViewById<TextView>(R.id.date_place_added)
             dateCreatedOnText.text = view.context.getString(R.string.created_on, place.formattedDate())
             val mapIcon = view.findViewById<ImageView>(R.id.map_icon)
