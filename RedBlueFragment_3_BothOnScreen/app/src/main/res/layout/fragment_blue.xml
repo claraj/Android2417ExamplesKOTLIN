@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_bright"
-    tools:context=".BlueFragment">
+    tools:context=".BlueFragment"
+    android:clickable="true"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/textView2"
