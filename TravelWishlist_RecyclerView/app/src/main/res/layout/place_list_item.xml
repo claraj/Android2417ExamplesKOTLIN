@@ -4,34 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:background="#84C6C0">
+    android:layout_margin="@dimen/medium_spacing"
+    android:background="@color/list_item_background">
 
     <TextView
         android:id="@+id/place_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:padding="20dp"
-        android:text="TextView"
+        android:layout_margin="@dimen/small_spacing"
+        android:padding="@dimen/medium_spacing"
+        tools:text="Place Name"
         android:textAlignment="viewStart"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/large_text_size"
+        app:layout_constraintEnd_toStartOf="@+id/map_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/date_place_added"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginBottom="1dp"
-        android:padding="20dp"
-        android:text="TextView"
+        android:layout_margin="@dimen/small_spacing"
+        android:padding="@dimen/medium_spacing"
+        tools:text="Date added"
+        android:textSize="@dimen/medium_text_size"
         android:textAlignment="viewStart"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/map_icon"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/place_name" />
+
+    <ImageView
+        android:id="@+id/map_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/extra_large_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/dark_gray"
+        app:srcCompat="@android:drawable/ic_dialog_map"
+        android:contentDescription="@string/icon_description_show_place_in_map_application" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

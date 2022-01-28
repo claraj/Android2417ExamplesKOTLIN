@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -20,16 +21,9 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
 
     private lateinit var placeListRecyclerView: RecyclerView
     private lateinit var newPlaceEditText: EditText
+    private lateinit var addNewPlaceButton: Button
 
     private lateinit var placesRecyclerAdapter: PlaceRecyclerAdapter
-
-    // What event ID a done or enter key creates, varies by device.
-    // Hopefully this should cover it but let me know if this doesn't work on your device
-    private val doneKeyPressIDs = listOf(
-        EditorInfo.IME_ACTION_DONE,
-        EditorInfo.IME_ACTION_GO,
-        EditorInfo.IME_ACTION_NEXT,
-        EditorInfo.IME_ACTION_SEND)
 
     private val placesListModel: PlacesViewModel by lazy {
         ViewModelProvider(this).get(PlacesViewModel::class.java)
@@ -41,17 +35,11 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
 
         placeListRecyclerView = findViewById(R.id.place_list)
         newPlaceEditText = findViewById(R.id.new_place_name)
+        addNewPlaceButton = findViewById(R.id.add_new_place_button)
 
-        newPlaceEditText.setOnEditorActionListener { textView, actionId, keyEvent ->
-            if (actionId in doneKeyPressIDs) {
-                addNewPlace(textView.text.toString())
-            }
-            false  // event has not been consumed
-        }
-
-        // Configure the RecyclerView
         val places = placesListModel.getPlaces()
 
+        // Configure the RecyclerView
         placesRecyclerAdapter = PlaceRecyclerAdapter(places, this)
         placeListRecyclerView.layoutManager = LinearLayoutManager(this)
         placeListRecyclerView.adapter = placesRecyclerAdapter
@@ -60,9 +48,14 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         ItemTouchHelper(OnListItemSwipeListener( this))
             .attachToRecyclerView(placeListRecyclerView)
 
+        addNewPlaceButton.setOnClickListener {
+            addNewPlace()
+        }
+
     }
 
-    private fun addNewPlace(placeName: String) {
+    private fun addNewPlace() {
+        val placeName = newPlaceEditText.text.toString()
         val name = placeName.trim()
         if (name.isEmpty()) {
             Toast.makeText(this, "Enter a place name", Toast.LENGTH_SHORT).show()

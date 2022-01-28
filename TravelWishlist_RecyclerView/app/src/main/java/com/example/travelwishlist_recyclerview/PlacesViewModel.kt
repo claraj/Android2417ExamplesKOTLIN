@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class PlacesViewModel: ViewModel() {
 
-    // Example data added for testing. You may modify or remove.
+    // Example data added for testing. You may modify, or use an empty MutableList.
     private val placeNames = mutableListOf<Place>(Place("Toronto"), Place("Patagonia, Chile"), Place("Auckland, NZ"))
 
     fun getPlaces(): List<Place> {

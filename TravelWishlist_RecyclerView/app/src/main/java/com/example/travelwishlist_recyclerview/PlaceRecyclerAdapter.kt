@@ -3,6 +3,7 @@ package com.example.travelwishlist_recyclerview
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -21,8 +22,8 @@ class PlaceRecyclerAdapter(private val places: List<Place>, private val onListIt
 
             val dateCreatedOnText = view.findViewById<TextView>(R.id.date_place_added)
             dateCreatedOnText.text = view.context.getString(R.string.created_on, place.formattedDate())
-
-            view.setOnClickListener {
+            val mapIcon = view.findViewById<ImageView>(R.id.map_icon)
+            mapIcon.setOnClickListener {
                 onListItemClickedListener.onListItemClicked(place)
             }
         }
