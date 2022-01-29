@@ -42,8 +42,8 @@ class PlacesViewModel: ViewModel() {
         }
     }
 
-    fun deletePlace(position: Int) {
-        placeNames.removeAt(position)
+    fun deletePlace(position: Int): Place {
+        return placeNames.removeAt(position)
     }
 
     fun movePlace(from: Int, to: Int) {
@@ -51,10 +51,6 @@ class PlacesViewModel: ViewModel() {
         val place = placeNames.removeAt(from)
         // Insert into list at new position
         placeNames.add(to, place)
-    }
-
-    fun placeAt(position: Int): Place {
-        return placeNames[position]
     }
 
     fun clear() {

@@ -93,8 +93,8 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         /** Delete the place at position.
          * Display a Snackbar with an undo option, and
          * restore the place if the undo action is tapped. */
-        val place = placesListModel.placeAt(position)
-        placesListModel.deletePlace(position)
+
+        val place = placesListModel.deletePlace(position)
         placesRecyclerAdapter.notifyItemRemoved(position)
 
         Snackbar.make(findViewById(R.id.container), getString(R.string.place_deleted, place.name), Snackbar.LENGTH_LONG)

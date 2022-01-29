@@ -15,8 +15,8 @@ interface OnListItemClickedListener {
 class PlaceRecyclerAdapter(private val places: List<Place>, private val onListItemClickedListener: OnListItemClickedListener):
     RecyclerView.Adapter<PlaceRecyclerAdapter.ViewHolder>() {
 
-    class ViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
-        fun bind(place: Place, onListItemClickedListener: OnListItemClickedListener){
+    inner class ViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
+        fun bind(place: Place){
             val placeNameText: TextView = view.findViewById(R.id.place_name)
             placeNameText.text = place.name
 
@@ -36,7 +36,7 @@ class PlaceRecyclerAdapter(private val places: List<Place>, private val onListIt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val place = places[position]
-        holder.bind(place, onListItemClickedListener)
+        holder.bind(place)
     }
 
     override fun getItemCount(): Int {

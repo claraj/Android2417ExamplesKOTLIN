@@ -25,23 +25,23 @@ class ViewModelUnitTest {
         val testPlace1 = Place("example1")
         val position1 = vm.addNewPlace(testPlace1)
 
-        assertEquals(testPlace1, vm.placeAt(0))
+        assertEquals(testPlace1, vm.getPlaces()[0])
         assertEquals(0, position1)
 
         val testPlace2 = Place("example2")
         val position2 = vm.addNewPlace(testPlace2)
 
         assertEquals(1, position2)
-        assertEquals(testPlace1, vm.placeAt(0))
-        assertEquals(testPlace2, vm.placeAt(1))
+        assertEquals(testPlace1, vm.getPlaces()[0])
+        assertEquals(testPlace2, vm.getPlaces()[1])
 
         val testPlace3 = Place("example3")
         val position3 = vm.addNewPlace(testPlace3)
 
         assertEquals(2, position3)
-        assertEquals(testPlace1, vm.placeAt(0))
-        assertEquals(testPlace2, vm.placeAt(1))
-        assertEquals(testPlace3, vm.placeAt(2))
+        assertEquals(testPlace1, vm.getPlaces()[0])
+        assertEquals(testPlace2, vm.getPlaces()[1])
+        assertEquals(testPlace3, vm.getPlaces()[2])
     }
 
     @Test
@@ -50,20 +50,20 @@ class ViewModelUnitTest {
         val position1 = vm.addNewPlace(testPlace1)
 
         assertEquals(0, position1)
-        assertEquals(testPlace1, vm.placeAt(0))
+        assertEquals(testPlace1, vm.getPlaces()[0])
 
         val testPlace2 = Place("example1")
         val position2 = vm.addNewPlace(testPlace2)
         assertEquals(-1, position2)
 
-        assertEquals(testPlace1, vm.placeAt(0))
+        assertEquals(testPlace1, vm.getPlaces()[0])
         assertEquals(1, vm.getPlaces().size)
 
         val testPlace3 = Place("ExAmPle1")
         val position3 = vm.addNewPlace(testPlace3)
 
         assertEquals(-1, position3)
-        assertEquals(testPlace1, vm.placeAt(0))
+        assertEquals(testPlace1, vm.getPlaces()[0])
         assertEquals(1, vm.getPlaces().size)
     }
 
@@ -73,41 +73,41 @@ class ViewModelUnitTest {
         val position1 = vm.addNewPlace(testPlace1)
 
         assertEquals(0, position1)
-        assertEquals(testPlace1, vm.placeAt(0))
+        assertEquals(testPlace1, vm.getPlaces()[0])
 
         val testPlace2 = Place("example2")
         val position2 = vm.addNewPlace( testPlace2, 0)
 
         assertEquals(0, position2)
-        assertEquals(testPlace2, vm.placeAt(0))
-        assertEquals(testPlace1, vm.placeAt(1))
+        assertEquals(testPlace2, vm.getPlaces()[0])
+        assertEquals(testPlace1, vm.getPlaces()[1])
 
         val testPlace3 = Place("example3")
         val position3 = vm.addNewPlace(testPlace3, 1)
 
         assertEquals(1, position3)
-        assertEquals(testPlace2, vm.placeAt(0))
-        assertEquals(testPlace3, vm.placeAt(1))
-        assertEquals(testPlace1, vm.placeAt(2))
+        assertEquals(testPlace2, vm.getPlaces()[0])
+        assertEquals(testPlace3, vm.getPlaces()[1])
+        assertEquals(testPlace1, vm.getPlaces()[2])
 
         val testPlace4 = Place("example4")
         val position4 = vm.addNewPlace(testPlace4, 1)
 
         assertEquals(1, position4)
-        assertEquals(testPlace2, vm.placeAt(0))
-        assertEquals(testPlace4, vm.placeAt(1))
-        assertEquals(testPlace3, vm.placeAt(2))
-        assertEquals(testPlace1, vm.placeAt(3))
+        assertEquals(testPlace2, vm.getPlaces()[0])
+        assertEquals(testPlace4, vm.getPlaces()[1])
+        assertEquals(testPlace3, vm.getPlaces()[2])
+        assertEquals(testPlace1, vm.getPlaces()[3])
 
         val testPlace5 = Place("example5")
         val position5 = vm.addNewPlace(testPlace5, 4)
 
         assertEquals(4, position5)
-        assertEquals(testPlace2, vm.placeAt(0))
-        assertEquals(testPlace4, vm.placeAt(1))
-        assertEquals(testPlace3, vm.placeAt(2))
-        assertEquals(testPlace1, vm.placeAt(3))
-        assertEquals(testPlace5, vm.placeAt(4))
+        assertEquals(testPlace2, vm.getPlaces()[0])
+        assertEquals(testPlace4, vm.getPlaces()[1])
+        assertEquals(testPlace3, vm.getPlaces()[2])
+        assertEquals(testPlace1, vm.getPlaces()[3])
+        assertEquals(testPlace5, vm.getPlaces()[4])
     }
 
 
