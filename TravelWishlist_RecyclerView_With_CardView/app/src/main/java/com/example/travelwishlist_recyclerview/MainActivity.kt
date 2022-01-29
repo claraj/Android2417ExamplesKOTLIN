@@ -98,13 +98,17 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         placesRecyclerAdapter.notifyItemRemoved(position)
 
         Snackbar.make(findViewById(R.id.container), getString(R.string.place_deleted, place.name), Snackbar.LENGTH_LONG)
-            .setActionTextColor(resources.getColor(R.color.red))  // Newer android version requires a theme argument so the correct color can be fetched for the theme used.
+            .setActionTextColor(resources.getColor(R.color.red))
+            .setBackgroundTint(resources.getColor(R.color.black))
             .setAction(getString(R.string.undo_delete)) {
                 placesListModel.addNewPlace(place, position)
                 placesRecyclerAdapter.notifyItemInserted(position)
             }
-            .setBackgroundTint(resources.getColor(R.color.black))
-            .show()
+            .show()  // don't forget!
+
+        // Note on .getColor
+        // Newer android versions require a theme argument so the correct color can be f
+        // fetched for the theme used so appropriate colors can be used for the current theme.
     }
 
     private fun clearForm() {
