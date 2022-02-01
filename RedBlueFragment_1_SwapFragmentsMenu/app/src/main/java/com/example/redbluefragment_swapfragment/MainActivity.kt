@@ -2,9 +2,10 @@ package com.example.redbluefragment_swapfragment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.commit
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,6 +49,14 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, RedFragment.newInstance(), "RED")
                         .commit()
+
+                    // Alternative - need the Android KTX library, add to build.gradle for the module
+                    // https://developer.android.com/kotlin/ktx#fragment
+                    supportFragmentManager.commit {
+                        // beginTransaction()  // not needed
+                        replace(R.id.fragment_container, RedFragment.newInstance(), "RED")
+                    }
+
                 }
                 "BLUE" -> {
                     // Otherwise, replace the current fragment with the blue fragment
