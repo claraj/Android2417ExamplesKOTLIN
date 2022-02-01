@@ -44,13 +44,11 @@ class SquareActivity : AppCompatActivity() {
     }
 
     private fun squareTapped(didTapSquare: Boolean) {
-        val resultIntent = Intent().apply {
+        Intent().apply {
             putExtra(TAPPED_INSIDE_SQUARE, didTapSquare)
+            setResult(RESULT_OK, this)
+            finish()
         }
-
-        setResult(RESULT_OK, resultIntent)
-        finish()
-
     }
 }
 

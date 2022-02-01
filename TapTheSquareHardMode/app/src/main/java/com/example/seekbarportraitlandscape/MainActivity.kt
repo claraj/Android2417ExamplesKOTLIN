@@ -56,12 +56,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSquare() {
-        val showSquareIntent = Intent(this, SquareActivity::class.java).apply {
+        Intent(this, SquareActivity::class.java).apply {
             putExtra(EXTRA_SQUARE_SIZE, seekbar.progress + 1)
             putExtra(EXTRA_HARD_MODE, easyModeSwitch.isChecked)
+            resultLauncher.launch(this)
         }
-        //startActivity(showSquareIntent)
-        resultLauncher.launch(showSquareIntent)
     }
 
 
