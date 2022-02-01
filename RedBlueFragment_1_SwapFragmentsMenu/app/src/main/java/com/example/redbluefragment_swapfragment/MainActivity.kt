@@ -50,12 +50,16 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.fragment_container, RedFragment.newInstance(), "RED")
                         .commit()
 
+                    /*
                     // Alternative - need the Android KTX library, add to build.gradle for the module
                     // https://developer.android.com/kotlin/ktx#fragment
+                    // Simplify code to the following, harder to forget to call .commit
                     supportFragmentManager.commit {
                         // beginTransaction()  // not needed
                         replace(R.id.fragment_container, RedFragment.newInstance(), "RED")
                     }
+
+                     */
 
                 }
                 "BLUE" -> {
