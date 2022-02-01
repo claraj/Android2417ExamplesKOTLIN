@@ -48,11 +48,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSquare() {
-        val showSquareIntent = Intent(this, SquareActivity::class.java).apply {
+        Intent(this, SquareActivity::class.java).apply {
             putExtra(EXTRA_SQUARE_SIZE, seekbar.progress)
+            resultLauncher.launch(this)
         }
-        //startActivity(showSquareIntent)
-        resultLauncher.launch(showSquareIntent)
+
+        // Without .apply, the code will look like this
+//        val showSquareIntent = Intent(this, SquareActivity::class.java)
+//        showSquareIntent.putExtra(EXTRA_SQUARE_SIZE, seekbar.progress)
+//        resultLauncher.launch(showSquareIntent)
+
     }
 
 
