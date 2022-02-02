@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="thumbnail_height">100dp</dimen>
+    <dimen name="list_item_content_padding">5dp</dimen>
+</resources>
