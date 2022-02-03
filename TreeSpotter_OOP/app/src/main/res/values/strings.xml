@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">TreeSpotter_OOP</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">TreeSpotter OOP</string>
     <string name="see_tree_details">See Tree Details</string>
     <string name="i_spotted_this_tree">I spotted this tree!</string>
     <string name="spotted">Spotted!</string>

@@ -1,9 +1,9 @@
 package com.example.treespotter_oop
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.treespotter_oop.model.Maple
+import com.example.treespotter_oop.model.Tree
 
 class TreeViewModel: ViewModel() {
 val name = MutableLiveData("list")
@@ -21,7 +21,7 @@ val name = MutableLiveData("list")
             "MN",
             R.drawable.red_pine,
             R.drawable.red_pine_thumbnail),
-        Tree(
+        Maple(
             3,
             "Sugar Maple",
             "WI",

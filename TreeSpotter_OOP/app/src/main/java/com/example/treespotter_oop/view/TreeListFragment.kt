@@ -1,4 +1,4 @@
-package com.example.treespotter_oop
+package com.example.treespotter_oop.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.example.treespotter_oop.R
+import com.example.treespotter_oop.TreeListListener
+import com.example.treespotter_oop.TreeRecyclerViewAdapter
+import com.example.treespotter_oop.TreeViewModel
+import com.example.treespotter_oop.model.Tree
 
 /**
  * A fragment representing a list of Trees.
@@ -25,7 +30,7 @@ class TreeListFragment : Fragment(), TreeListListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val recyclerView = inflater.inflate(R.layout.fragment_tree_list, container, false) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)

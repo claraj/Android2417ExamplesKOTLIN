@@ -8,5 +8,5 @@
     android:layout_height="match_parent"
     android:background="@color/app_background"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".TreeListFragment"
+    tools:context=".view.TreeListFragment"
     tools:listitem="@layout/fragment_tree_list_item" />

@@ -1,10 +1,10 @@
-package com.example.treespotter_oop
+package com.example.treespotter_oop.model
 
 import java.util.*
 
-class Tree(val id: Int, val name: String, val state: String, val imageResourceId: Int, val thumbnailResourceId: Int) {
+open class Tree(val id: Int, val name: String, val state: String, val imageResourceId: Int, val thumbnailResourceId: Int) {
 
-    private val isMapleTree: Boolean = (name == "Sugar Maple")
+//    private val isMapleTree: Boolean = (name == "Sugar Maple")
 
     init {
         if (name.isBlank() or state.isBlank()) {
@@ -49,13 +49,13 @@ class Tree(val id: Int, val name: String, val state: String, val imageResourceId
         return "$state tree is $name, spotted $spotted"
     }
 
-    fun makeMapleSyrup() {
-        if (isMapleTree) {
-            println("OK! If it's spring")
-        } else {
-            println("Wrong kind of tree")
-        }
-    }
+//    fun makeMapleSyrup() {
+//        if (isMapleTree) {
+//            println("OK! If it's spring")
+//        } else {
+//            println("Wrong kind of tree")
+//        }
+//    }
 }
 
 

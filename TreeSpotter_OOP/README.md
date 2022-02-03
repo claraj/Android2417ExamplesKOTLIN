@@ -24,3 +24,7 @@ Web page: https://www.eekwi.org/veg/trees/sugarmaple.htm
 ### Tree Not Found Icon
 
 <a href="https://www.flaticon.com/free-icons/christmas-tree" title="christmas tree icons">Christmas tree icons created by Freepik - Flaticon</a>
+
+### Maple Leaf Icon
+
+<a href="https://www.flaticon.com/free-icons/leaf" title="leaf icons">Leaf icons created by Freepik - Flaticon</a>

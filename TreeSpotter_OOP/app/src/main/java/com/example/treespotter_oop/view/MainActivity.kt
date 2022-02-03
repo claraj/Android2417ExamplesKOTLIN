@@ -1,8 +1,8 @@
-package com.example.treespotter_oop
+package com.example.treespotter_oop.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import com.example.treespotter_oop.R
 
 class MainActivity : AppCompatActivity() {
 

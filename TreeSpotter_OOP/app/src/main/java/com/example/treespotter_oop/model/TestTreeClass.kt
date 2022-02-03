@@ -1,4 +1,4 @@
-package com.example.treespotter_oop
+package com.example.treespotter_oop.model
 
 import java.util.*
 

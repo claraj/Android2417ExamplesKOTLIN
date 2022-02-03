@@ -1,7 +1,6 @@
 package com.example.treespotter_oop
 
 import android.content.Context
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.example.treespotter_oop.model.Tree
 
 interface TreeListListener {
     fun treeSelected(treeId: Int)

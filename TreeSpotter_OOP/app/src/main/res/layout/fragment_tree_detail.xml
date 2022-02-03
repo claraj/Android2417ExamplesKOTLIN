@@ -7,20 +7,19 @@
     android:layout_height="match_parent"
     android:background="@color/app_background"
     android:padding="20dp"
-    tools:context=".TreeDetailFragment">
+    tools:context=".view.TreeDetailFragment">
 
 
     <TextView
         android:id="@+id/tree_name"
-        android:layout_width="371dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="48sp"
         app:layout_constraintBottom_toTopOf="@+id/state"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detail_tree_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
         tools:text="Red Pine" />
@@ -28,15 +27,14 @@
 
     <TextView
         android:id="@+id/state"
-        android:layout_width="371dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/tree_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detail_tree_icon"
         app:layout_constraintTop_toBottomOf="@+id/tree_name"
         tools:text="MN" />
 
@@ -58,10 +56,8 @@
 
     <ImageView
         android:id="@+id/tree_image"
-        android:layout_width="371dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-
-
         android:padding="@dimen/list_item_content_padding"
         android:src="@drawable/tree_not_found"
         app:layout_constraintBottom_toTopOf="@+id/detail_spotted_this_tree"
@@ -69,6 +65,18 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/state" />
+
+    <ImageView
+        android:id="@+id/detail_tree_icon"
+        android:layout_width="@dimen/tree_icon"
+        android:layout_height="@dimen/tree_icon"
+        android:adjustViewBounds="true"
+        android:padding="@dimen/tree_icon_padding"
+        android:src="@drawable/maple_leaf"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/state"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tree_name" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
