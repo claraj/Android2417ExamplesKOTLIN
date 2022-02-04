@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ViewBinding</string>
+    <string name="kitten">Kitten</string>
+    <string name="puppy">Puppy</string>
+    <string name="lizard">Lizard</string>
+</resources>
