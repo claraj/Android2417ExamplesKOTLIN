@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Maps_And_Location</string>
+    <string name="map_tab_text">Map</string>
+    <string name="location_tab_text">Location List</string>
+    <string name="visited">I am here!</string>
+    <string name="view_in_map">View in map</string>
+</resources>
