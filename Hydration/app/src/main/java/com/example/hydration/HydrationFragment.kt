@@ -41,15 +41,16 @@ class HydrationFragment : Fragment() {
         addGlassButton = view.findViewById(R.id.add_glass_button)
         resetGlassesButton = view.findViewById(R.id.reset_count_button)
 
-        addGlassButton.setOnClickListener { addGlass() }
-        resetGlassesButton.setOnClickListener { resetGlasses() }
-
         waterViewModel.getRecordForDay(dayOfWeek).observe(requireActivity()) { waterRecord ->
             if (waterRecord == null) {
                 waterViewModel.insertNewRecord(WaterRecord(dayOfWeek, 0))
             } else {
                 this.waterRecord = waterRecord
                 waterRatingBar.progress = waterRecord.glasses
+
+                // Add listeners only when data is available
+                addGlassButton.setOnClickListener { addGlass() }
+                resetGlassesButton.setOnClickListener { resetGlasses() }
             }
         }
 
