@@ -13,8 +13,10 @@ private const val ARG_DAY_OF_WEEK = "day_of_week"
 class HydrationFragment : Fragment() {
 
     private val waterViewModel: WaterViewModel by lazy {
-        WaterViewModelFactory((requireActivity().application as HydrationApplication).repository)
-            .create(WaterViewModel::class.java)
+        val app = requireActivity().application as HydrationApplication
+        WaterViewModelFactory(app.waterRepository, app.daysRepository).create(
+            WaterViewModel::class.java
+        )
     }
 
     private lateinit var waterRatingBar: RatingBar
