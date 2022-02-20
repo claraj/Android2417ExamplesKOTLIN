@@ -30,7 +30,8 @@ class HydrationFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            dayOfWeek = it.getString(ARG_DAY_OF_WEEK)!!
+            dayOfWeek = it.getString(ARG_DAY_OF_WEEK) ?:
+                throw IllegalArgumentException("No day of week provided to HydrationFragment")
         }
     }
 
@@ -42,6 +43,9 @@ class HydrationFragment : Fragment() {
         waterRatingBar = view.findViewById(R.id.water_rating_bar)
         addGlassButton = view.findViewById(R.id.add_glass_button)
         resetGlassesButton = view.findViewById(R.id.reset_count_button)
+
+        waterRatingBar.numStars = WaterRecord.MAX_GLASSES
+        waterRatingBar.max = WaterRecord.MAX_GLASSES
 
         waterViewModel.getRecordForDay(dayOfWeek).observe(requireActivity()) { waterRecord ->
             if (waterRecord == null) {
@@ -60,10 +64,10 @@ class HydrationFragment : Fragment() {
     }
 
     private fun addGlass() {
-        if (waterRecord.glasses < resources.getInteger(R.integer.max_glasses)) {
+       if (waterRecord.glasses < WaterRecord.MAX_GLASSES) {
             waterRecord.glasses++
             waterViewModel.updateRecord(waterRecord)
-        }
+       }
     }
 
     private fun resetGlasses() {

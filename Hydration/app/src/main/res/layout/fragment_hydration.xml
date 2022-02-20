@@ -24,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:isIndicator="true"
-        android:numStars="@integer/max_glasses"
         android:rating="0"
         android:stepSize="1"
         app:layout_constraintBottom_toTopOf="@+id/add_glass_button"
