@@ -1,42 +1,52 @@
 package com.example.hydration
 
 import androidx.lifecycle.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
-class WaterViewModel(private val repository: WaterRepository): ViewModel() {
+class WaterViewModel(private val waterRepository: WaterRepository, private val daysRepository: DaysRepository): ViewModel() {
 
     // We'll need this frequently so keep a copy here
-    val allRecords = repository.getAllRecords().asLiveData()
+    val allRecords = waterRepository.getAllRecords().asLiveData()
 
     fun insertNewRecord(record: WaterRecord) {
         viewModelScope.launch() {
-            repository.insert(record)
+            waterRepository.insert(record)
         }
     }
 
     fun updateRecord(record: WaterRecord) {
         viewModelScope.launch {
-            repository.update(record)
+            waterRepository.update(record)
         }
     }
 
     fun deleteRecord(record: WaterRecord) {
         viewModelScope.launch {
-            repository.delete(record)
+            waterRepository.delete(record)
         }
     }
 
     fun getRecordForDay(day: String): LiveData<WaterRecord> {
-        return repository.getRecordForDay(day).asLiveData()
+        return waterRepository.getRecordForDay(day).asLiveData()
     }
+
+
+    fun getWeekdays(): List<String> {
+        return daysRepository.weekdays
+    }
+
+
+    fun getTodayIndex(): Int {
+        return daysRepository.todayIndex
+    }
+
 }
 
-class WaterViewModelFactory(private val repository: WaterRepository): ViewModelProvider.Factory {
+class WaterViewModelFactory(private val waterRepository: WaterRepository, private val daysRepository: DaysRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(WaterViewModel::class.java)) {
-            return WaterViewModel(repository) as T
+            return WaterViewModel(waterRepository, daysRepository) as T
         }
         throw IllegalArgumentException("$modelClass class is not a WaterViewModel")
     }

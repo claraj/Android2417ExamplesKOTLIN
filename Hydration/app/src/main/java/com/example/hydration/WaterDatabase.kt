@@ -24,7 +24,3 @@ abstract class WaterDatabase : RoomDatabase() {
         }
     }
 }
-
-
-
-
