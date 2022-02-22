@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Collage</string>
+    <string name="action_save">Save Collage</string>
+    <string name="take_all_pictures_before_save">Take all 4 pictures first!</string>
+    <string name="saved">Saved to your gallery!</string>
+    <string name="feature_unsupported">Feature unsupported on this device</string>
 </resources>

@@ -1,0 +1,114 @@
+[
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable_ic_launcher_background.xml.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable_bur_oak.jpeg.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/drawable/bur_oak.jpeg"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/layout_activity_main.xml.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/layout_fragment_tree_detail.xml.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/layout/fragment_tree_detail.xml"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/layout_fragment_tree_list_item.xml.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/layout/fragment_tree_list_item.xml"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/generated/res/pngs/debug/drawable-anydpi-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable_sugar_maple.jpeg.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/drawable/sugar_maple.jpeg"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable_sugar_maple_thumbnail.jpeg.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/drawable/sugar_maple_thumbnail.jpeg"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable_tree_not_found.png.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/drawable/tree_not_found.png"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/layout_fragment_tree_list.xml.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/layout/fragment_tree_list.xml"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable_eastern_white_pine_thumbnail.jpeg.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/drawable/eastern_white_pine_thumbnail.jpeg"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable_binoculars.png.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/drawable/binoculars.png"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable_red_pine.jpeg.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/drawable/red_pine.jpeg"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable_eastern_white_pine.jpeg.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/drawable/eastern_white_pine.jpeg"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable_red_pine_thumbnail.jpeg.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/drawable/red_pine_thumbnail.jpeg"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/merged_res/debug/drawable_maple_leaf.png.flat",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/drawable/maple_leaf.png"
+    }
+]

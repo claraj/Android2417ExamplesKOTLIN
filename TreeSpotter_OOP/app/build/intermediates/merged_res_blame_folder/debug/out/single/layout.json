@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_tree_list.xml",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/layout/fragment_tree_list.xml"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_tree_detail.xml",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/layout/fragment_tree_detail.xml"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_tree_list_item.xml",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/layout/fragment_tree_list_item.xml"
+    },
+    {
+        "merged": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_main.xml",
+        "source": "/Users/ladmin/development/Android/Android2417ExamplesKOTLIN/TreeSpotter_OOP/app/src/main/res/layout/activity_main.xml"
+    }
+]

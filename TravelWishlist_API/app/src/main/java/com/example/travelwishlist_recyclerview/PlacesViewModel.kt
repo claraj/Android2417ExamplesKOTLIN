@@ -1,14 +1,35 @@
 package com.example.travelwishlist_recyclerview
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PlacesViewModel: ViewModel() {
 
     // Example data added for testing. You may modify or remove.
-    private val placeNames = mutableListOf<Place>(Place("Toronto", isStarred = true), Place("Patagonia, Chile"), Place("Auckland, NZ"))
+    // TODO will replace with data from API
+    private val placeNames = mutableListOf<Place>(
+        Place(0, "Toronto", starred = true),
+        Place(1, "Patagonia, Chile"),
+        Place(2, "Auckland, NZ"))
 
-    fun getPlaces(): List<Place> {
-        return placeNames
+
+    private val placeRepository = PlaceRepository()
+
+    val allPlaces = MutableLiveData(listOf<Place>())
+
+    init {
+        getPlaces()
+    }
+
+    fun getPlaces() {
+        // return placeNames
+        viewModelScope.launch(Dispatchers.IO) {
+            val places = placeRepository.getAllPlaces()
+            allPlaces.postValue(places)
+        }
     }
 
     fun addNewPlace(place: Place, position: Int? = null): Int {

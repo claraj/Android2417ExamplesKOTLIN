@@ -72,21 +72,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun takePicture() {
-
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-        val cameraActivity = takePictureIntent.resolveActivity(packageManager)  // if there is a camera, this will be non-null
-        if (cameraActivity != null) {
-            val (photoFile, photoFilePath) = createImageFile()
-            if (photoFile != null){
-                newPhotoPath = photoFilePath
-                val photoUri = FileProvider.getUriForFile(this, "com.example.collage.fileprovider", photoFile)
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                cameraActivityLauncher.launch(takePictureIntent)
-            }
-        }
-        else {
-            Snackbar.make(mainView, "There is no camera on this device", Snackbar.LENGTH_INDEFINITE).show()
+        val (photoFile, photoFilePath) = createImageFile()
+        if (photoFile != null){
+            newPhotoPath = photoFilePath
+            val photoUri = FileProvider.getUriForFile(
+                this,
+                "com.example.collage.fileprovider",
+                photoFile
+            )
+            Log.d(TAG, "$photoUri\n$photoFilePath")  // what's the difference?
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+            cameraActivityLauncher.launch(takePictureIntent)
         }
     }
 

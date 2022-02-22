@@ -5,9 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -21,6 +24,8 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
     private lateinit var placeListRecyclerView: RecyclerView
     private lateinit var newPlaceEditText: EditText
     private lateinit var addNewPlaceButton: Button
+
+    private lateinit var loadingBar: ProgressBar
 
     private lateinit var placesRecyclerAdapter: PlaceRecyclerAdapter
 
@@ -36,21 +41,23 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         newPlaceEditText = findViewById(R.id.new_place_name)
         addNewPlaceButton = findViewById(R.id.add_new_place_button)
 
-        val places = placesListModel.getPlaces()
+        // val places = placesListModel.getPlaces()
 
-        // Configure the RecyclerView
-        placesRecyclerAdapter = PlaceRecyclerAdapter(places, this)
-        placeListRecyclerView.layoutManager = LinearLayoutManager(this)
-        placeListRecyclerView.adapter = placesRecyclerAdapter
+        placesListModel.allPlaces.observe(this) { places ->
 
-        // Create new ItemTouchHelper, pass this activity as the listener, and attach to recycler
-        ItemTouchHelper(OnListItemSwipeListener( this))
-            .attachToRecyclerView(placeListRecyclerView)
+            // Configure the RecyclerView
+            placesRecyclerAdapter = PlaceRecyclerAdapter(places, this)
+            placeListRecyclerView.layoutManager = LinearLayoutManager(this)
+            placeListRecyclerView.adapter = placesRecyclerAdapter
 
-        addNewPlaceButton.setOnClickListener {
-            addNewPlace()
+            // Create new ItemTouchHelper, pass this activity as the listener, and attach to recycler
+            ItemTouchHelper(OnListItemSwipeListener(this))
+                .attachToRecyclerView(placeListRecyclerView)
+
+            addNewPlaceButton.setOnClickListener {
+                addNewPlace()
+            }
         }
-
     }
 
     private fun addNewPlace() {
@@ -59,7 +66,7 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         if (name.isEmpty()) {
             Toast.makeText(this, "Enter a place name", Toast.LENGTH_SHORT).show()
         } else {
-            val place = Place(name)
+            val place = Place(0, name)
             val positionAdded = placesListModel.addNewPlace(place)
             if (positionAdded == -1) {
                 Toast.makeText(this, "You already added that place", Toast.LENGTH_SHORT).show()
@@ -76,7 +83,7 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
     }
 
     override fun onStarredStatusChanged(place: Place, isStarred: Boolean) {
-        place.isStarred = isStarred
+        place.starred = isStarred
         val position = placesListModel.updatePlace(place)
         placesRecyclerAdapter.notifyItemChanged(position)
     }
@@ -125,6 +132,19 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         this.currentFocus?.let { view ->
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
+    private fun enableInteraction(canInteract: Boolean) {
+        if (canInteract) {
+            loadingBar.visibility = View.GONE
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        else {
+            loadingBar.visibility = View.VISIBLE
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
     }
 

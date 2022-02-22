@@ -1,5 +1,6 @@
 package com.example.travelwishlist_recyclerview
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,8 @@ class PlaceRecyclerAdapter(private val places: List<Place>, private val onListIt
 
     inner class ViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
         fun bind(place: Place){
+
+            Log.d("ADAPTER", "place $place")
             val placeNameText: TextView = view.findViewById(R.id.place_name)
             placeNameText.text = place.name
 
@@ -33,7 +36,7 @@ class PlaceRecyclerAdapter(private val places: List<Place>, private val onListIt
                 // remove listener, if set
                 setOnCheckedChangeListener(null)
                 // set the state
-                isChecked = place.isStarred
+                isChecked = place.starred
                 // then re-add listener - otherwise setting the isChecked state calls the listener which causes
                 // the recycler view to update ths item which sets the isStarred value which calls the listener
                 // which updates the item...
