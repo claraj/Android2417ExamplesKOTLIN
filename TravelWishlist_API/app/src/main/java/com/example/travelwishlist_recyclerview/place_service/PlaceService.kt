@@ -3,18 +3,24 @@ package com.example.travelwishlist_recyclerview.place_service
 import com.example.travelwishlist_recyclerview.Place
 
 import retrofit2.Response
-import retrofit2.http.GET
+import retrofit2.http.*
 
 interface PlaceService {
 
     @GET("places/")
     suspend fun getAllPlaces(): Response<List<Place>>
 
-    // TODO add a place
+    // Create a place
+    @POST("places/")
+    suspend fun addPlace(@Body place: Place): Response<Place>
 
-    // TODO edit a place
+    // edit a place
+    @PATCH("places/{id}/")
+    suspend fun updatePlace(@Body place: Place, @Path("id") id: Int): Response<Place>
 
-    // TODO delete a place
+    @DELETE("places/{id}/")
+    suspend fun deletePlace(@Path("id") id: Int): Response<String>
+
 
 }
 

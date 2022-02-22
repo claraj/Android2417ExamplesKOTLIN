@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
     private lateinit var newPlaceEditText: EditText
     private lateinit var addNewPlaceButton: Button
 
-    private lateinit var loadingBar: ProgressBar
+    private lateinit var loadingPlacesProgressBar: ProgressBar
 
     private lateinit var placesRecyclerAdapter: PlaceRecyclerAdapter
 
@@ -40,25 +41,39 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         placeListRecyclerView = findViewById(R.id.place_list)
         newPlaceEditText = findViewById(R.id.new_place_name)
         addNewPlaceButton = findViewById(R.id.add_new_place_button)
+        loadingPlacesProgressBar = findViewById(R.id.loading_places)
 
-        // val places = placesListModel.getPlaces()
+        enableDisplay(false)
+
+        // Configure the RecyclerView with an empty list to start
+        placesRecyclerAdapter = PlaceRecyclerAdapter(listOf(), this)
+        placeListRecyclerView.layoutManager = LinearLayoutManager(this)
+        placeListRecyclerView.adapter = placesRecyclerAdapter
+
+        ItemTouchHelper(OnListItemSwipeListener(this))
+            .attachToRecyclerView(placeListRecyclerView)
+
+
+        addNewPlaceButton.setOnClickListener {
+            addNewPlace()
+        }
 
         placesListModel.allPlaces.observe(this) { places ->
+            Log.d("MAIN_ACTIVITY", "Places $places")
+            places?.let {
+                placesRecyclerAdapter.places = places
+                placesRecyclerAdapter.notifyDataSetChanged()
+                enableDisplay(true)
+            }
+        }
 
-            // Configure the RecyclerView
-            placesRecyclerAdapter = PlaceRecyclerAdapter(places, this)
-            placeListRecyclerView.layoutManager = LinearLayoutManager(this)
-            placeListRecyclerView.adapter = placesRecyclerAdapter
-
-            // Create new ItemTouchHelper, pass this activity as the listener, and attach to recycler
-            ItemTouchHelper(OnListItemSwipeListener(this))
-                .attachToRecyclerView(placeListRecyclerView)
-
-            addNewPlaceButton.setOnClickListener {
-                addNewPlace()
+        placesListModel.placesError.observe(this) { message ->
+            if (message != null) {
+                Snackbar.make(findViewById(R.id.container), message, Snackbar.LENGTH_LONG).show()
             }
         }
     }
+
 
     private fun addNewPlace() {
         val placeName = newPlaceEditText.text.toString()
@@ -66,27 +81,18 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         if (name.isEmpty()) {
             Toast.makeText(this, "Enter a place name", Toast.LENGTH_SHORT).show()
         } else {
-            val place = Place(0, name)
-            val positionAdded = placesListModel.addNewPlace(place)
-            if (positionAdded == -1) {
-                Toast.makeText(this, "You already added that place", Toast.LENGTH_SHORT).show()
-            } else {
-                placesRecyclerAdapter.notifyItemInserted(positionAdded)
-                clearForm()
-                hideKeyboard()
-            }
+            val place = Place(name)
+            placesListModel.addNewPlace(place)
+            clearForm()
+            hideKeyboard()
         }
     }
+
 
     override fun onMapRequestButtonClicked(place: Place) {
         showMapForPlace(place)
     }
 
-    override fun onStarredStatusChanged(place: Place, isStarred: Boolean) {
-        place.starred = isStarred
-        val position = placesListModel.updatePlace(place)
-        placesRecyclerAdapter.notifyItemChanged(position)
-    }
 
     private fun showMapForPlace(place: Place) {
         Toast.makeText(this, getString(R.string.showing_map_message, place.name), Toast.LENGTH_LONG).show()
@@ -95,37 +101,23 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         startActivity(mapIntent)
     }
 
-    override fun onListItemMoved(from: Int, to: Int) {
-        placesListModel.movePlace(from, to)
-        placesRecyclerAdapter.notifyItemMoved(from, to)
+
+    override fun onStarredStatusChanged(place: Place, isStarred: Boolean) {
+        place.starred = isStarred
+        placesListModel.updatePlace(place)
     }
+
 
     override fun onListItemDeleted(position: Int) {
-
-        /** Delete the place at position.
-         * Display a Snackbar with an undo option, and
-         * restore the place if the undo action is tapped. */
-
-        val place = placesListModel.deletePlace(position)
-        placesRecyclerAdapter.notifyItemRemoved(position)
-
-        Snackbar.make(findViewById(R.id.container), getString(R.string.place_deleted, place.name), Snackbar.LENGTH_LONG)
-            .setActionTextColor(resources.getColor(R.color.red))
-            .setBackgroundTint(resources.getColor(R.color.black))
-            .setAction(getString(R.string.undo_delete)) {
-                placesListModel.addNewPlace(place, position)
-                placesRecyclerAdapter.notifyItemInserted(position)
-            }
-            .show()  // don't forget!
-
-        // Note on .getColor
-        // Newer android versions require a theme argument so the correct color can be f
-        // fetched for the theme used so appropriate colors can be used for the current theme.
+        val place = placesRecyclerAdapter.places[position]
+        placesListModel.deletePlace(place)
     }
+
 
     private fun clearForm() {
         newPlaceEditText.text.clear()
     }
+
 
     private fun hideKeyboard() {
         // Close soft (on-screen) keyboard. https://stackoverflow.com/a/1109108
@@ -135,16 +127,14 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         }
     }
 
-    private fun enableInteraction(canInteract: Boolean) {
+    private fun enableDisplay(canInteract: Boolean) {
         if (canInteract) {
-            loadingBar.visibility = View.GONE
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        }
-        else {
-            loadingBar.visibility = View.VISIBLE
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            loadingPlacesProgressBar.visibility = View.GONE
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        } else {
+            loadingPlacesProgressBar.visibility = View.VISIBLE
+            window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         }
     }
 

@@ -1,6 +1,8 @@
 package com.example.travelwishlist_recyclerview
 
 import android.util.Log
+import com.example.travelwishlist_recyclerview.place_service.ApiResult
+import com.example.travelwishlist_recyclerview.place_service.ApiStatus
 import com.example.travelwishlist_recyclerview.place_service.AuthorizationHeaderInterceptor
 import com.example.travelwishlist_recyclerview.place_service.PlaceService
 import okhttp3.OkHttpClient
@@ -25,29 +27,64 @@ class PlaceRepository {
 
     private val placeService = retrofit.create(PlaceService::class.java)
 
-    suspend fun getAllPlaces(): List<Place> {
-        val response = placeService.getAllPlaces()
-        if (response.isSuccessful) {
-            val places = response.body() ?: listOf()
-            Log.d(TAG, "Places from API: $places")
-            return places
+    suspend fun getAllPlaces(): ApiResult<List<Place>> {
+        try {
+            val response = placeService.getAllPlaces()
+            if (response.isSuccessful) {
+                return ApiResult(ApiStatus.SUCCESS, response.body(), null)
+            } else {
+                return ApiResult(ApiStatus.NOT_SUCCESS, null, "Error getting places")
+            }
+        } catch (ex: Exception) {
+            return ApiResult(ApiStatus.ERROR, null, "Error connecting to server")
+        }
+    }
+
+    suspend fun addPlace(place: Place): ApiResult<Place> {
+        try {
+            val response = placeService.addPlace(place)
+            if (response.isSuccessful) {
+                return ApiResult(ApiStatus.SUCCESS, response.body(), null)
+            } else {
+                return ApiResult(ApiStatus.NOT_SUCCESS, null, "Error adding ${place.name} - no duplicates!")
+            }
+        } catch (ex: Exception) {
+            return ApiResult(ApiStatus.ERROR, null, "Error connecting to server.")
+        }
+    }
+
+    suspend fun updatePlace(place: Place): ApiResult<Place> {
+
+        if (place.id == null) {
+            return ApiResult(ApiStatus.ERROR, null, "Attempting to update a place with no ID")
         } else {
-            Log.e(TAG, "Error getting all places: ${response.errorBody()}")
-            // TODO better error handling - notify user request has failed
-            return listOf()
+            try {
+                val response = placeService.updatePlace(place, place.id)
+                if (response.isSuccessful) {
+                    return ApiResult(ApiStatus.SUCCESS, response.body(), null)
+                } else {
+                    return ApiResult(ApiStatus.NOT_SUCCESS, null, "Error updating ${place.name}")
+                }
+            } catch (ex: Exception) {
+                return ApiResult(ApiStatus.ERROR, null, "Error connecting to server.")
+            }
+        }
+    }
+
+    suspend fun deletePlace(place: Place): ApiResult<Nothing> {
+        if (place.id == null) {
+            return ApiResult(ApiStatus.ERROR, null, "Attempting to delete a place with no ID")
+        } else {
+            try {
+                val response = placeService.deletePlace(place.id)
+                if (response.isSuccessful) {
+                    return ApiResult(ApiStatus.SUCCESS, null, null)
+                } else {
+                    return ApiResult(ApiStatus.NOT_SUCCESS, null, "Error deleting ${place.name}")
+                }
+            } catch (ex: Exception) {
+                return ApiResult(ApiStatus.ERROR, null, "Error connecting to server.")
+            }
         }
     }
 }
-
-
-/*    suspend fun getAllPlaces(): List<Place> {
-       // try {
-        val places = placeService.getAllPlaces()
-            Log.d("PLACE_REPOSITORY", "$places")
-        if (places.isSuccessful) {
-            return places.body() ?: listOf()
-        } else {
-            Log.e("PLACE_REPOSITORY", "ERROR ${places.errorBody()}")
-            return listOf()
-        }
-    }*/

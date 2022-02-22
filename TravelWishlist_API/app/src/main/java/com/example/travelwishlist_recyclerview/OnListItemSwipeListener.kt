@@ -8,28 +8,22 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
 interface OnDataChangedListener {
-    fun onListItemMoved(from:Int, to:Int)
+    // fun onListItemMoved(from:Int, to:Int)
     fun onListItemDeleted(position: Int)
 }
 
 class OnListItemSwipeListener(private val onDataChangedListener: OnDataChangedListener):
-    ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-        ItemTouchHelper.RIGHT) {   // Could also permit left swipe to delete, or left swipe for another action, or either direction
+    ItemTouchHelper.SimpleCallback( 0, ItemTouchHelper.RIGHT) {   // Could also permit left swipe to delete, or left swipe for another action, or either direction
 
     private var deleteBackground: ColorDrawable = ColorDrawable(Color.GRAY)
-
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-
-        // For handling up/down movements
-        val fromPosition = viewHolder.adapterPosition
-        val toPosition = target.adapterPosition
-        onDataChangedListener.onListItemMoved(fromPosition, toPosition)
-        return true  // return true if item is moved, false otherwise.
+        return true   // no moving
     }
+
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         if (direction == ItemTouchHelper.RIGHT) {

@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/travel_background"/>
+        app:srcCompat="@drawable/travel_background" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/place_list"
@@ -31,7 +31,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_spacing"
-        android:padding="@dimen/small_spacing"
         android:background="@color/white"
         android:ems="10"
         android:hint="@string/enter_place_name"
@@ -41,6 +40,7 @@
         android:maxLines="1"
         android:minHeight="48dp"
         android:minLines="1"
+        android:padding="@dimen/small_spacing"
         app:layout_constraintEnd_toStartOf="@+id/add_new_place_button"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,13 +59,15 @@
         app:layout_constraintTop_toTopOf="@+id/new_place_name" />
 
     <ProgressBar
-        android:id="@+id/loading_data_progress_bar"
+        android:id="@+id/loading_places"
         style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/place_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
