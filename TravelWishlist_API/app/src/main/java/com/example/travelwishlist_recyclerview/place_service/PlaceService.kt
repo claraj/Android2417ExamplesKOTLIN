@@ -21,7 +21,6 @@ interface PlaceService {
     @DELETE("places/{id}/")
     suspend fun deletePlace(@Path("id") id: Int): Response<String>
 
-
 }
 
 

@@ -13,7 +13,8 @@ interface OnDataChangedListener {
 }
 
 class OnListItemSwipeListener(private val onDataChangedListener: OnDataChangedListener):
-    ItemTouchHelper.SimpleCallback( 0, ItemTouchHelper.RIGHT) {   // Could also permit left swipe to delete, or left swipe for another action, or either direction
+    ItemTouchHelper.SimpleCallback( 0, ItemTouchHelper.RIGHT) {
+    // Could also permit left swipe to delete, or left swipe for another action, or either direction
 
     private var deleteBackground: ColorDrawable = ColorDrawable(Color.GRAY)
     override fun onMove(
@@ -21,7 +22,7 @@ class OnListItemSwipeListener(private val onDataChangedListener: OnDataChangedLi
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        return true   // no moving
+        return true
     }
 
 

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.travelwishlist_recyclerview.place_service.ApiResult
 import com.example.travelwishlist_recyclerview.place_service.ApiStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,35 +35,31 @@ class PlacesViewModel: ViewModel() {
 
     fun addNewPlace(place: Place) {
         viewModelScope.launch {
-            val result = placeRepository.addPlace(place)
-            when (result.status) {
-                ApiStatus.SUCCESS -> getPlaces()
-                else -> placesError.postValue(result.message)
-            }
+            placeRepository.addPlace(place).also { refresh(it) }
         }
     }
 
 
     fun deletePlace(place: Place) {
         viewModelScope.launch {
-            val result = placeRepository.deletePlace(place)
-            when (result.status) {
-                ApiStatus.SUCCESS -> getPlaces()
-                else -> placesError.postValue(result.message)
-            }
+            placeRepository.deletePlace(place).also { refresh(it) }
         }
     }
 
 
     fun updatePlace(place: Place) {
         viewModelScope.launch {
-            val result = placeRepository.updatePlace(place)
-            when (result.status) {
-                ApiStatus.SUCCESS -> getPlaces()
-                else -> placesError.postValue(result.message)
-            }
+            placeRepository.updatePlace(place).also { refresh(it) }
+        }
+    }
+
+    private fun refresh(result: ApiResult<Any>) {
+        when (result.status) {
+            ApiStatus.SUCCESS -> getPlaces()
+            else -> placesError.postValue(result.message)
         }
     }
 }
+
 
 
