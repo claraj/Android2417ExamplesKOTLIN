@@ -13,7 +13,8 @@ interface OnDataChangedListener {
 }
 
 class OnListItemSwipeListener(private val onDataChangedListener: OnDataChangedListener):
-    ItemTouchHelper.SimpleCallback( 0, ItemTouchHelper.RIGHT) {
+    ItemTouchHelper.SimpleCallback( 0,  // no re-ordering
+        ItemTouchHelper.RIGHT) {
     // Could also permit left swipe to delete, or left swipe for another action, or either direction
 
     private var deleteBackground: ColorDrawable = ColorDrawable(Color.GRAY)

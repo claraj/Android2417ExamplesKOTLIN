@@ -1,4 +1,4 @@
-package com.example.travelwishlist_recyclerview.place_service
+package com.example.travelwishlist_recyclerview
 
 import com.example.travelwishlist_recyclerview.Place
 

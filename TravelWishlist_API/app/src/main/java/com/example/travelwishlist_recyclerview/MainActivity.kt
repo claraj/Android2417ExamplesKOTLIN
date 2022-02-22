@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
 
     private lateinit var placesRecyclerAdapter: PlaceRecyclerAdapter
 
-    private val placesListModel: PlacesViewModel by lazy {
+    private val placesViewModel: PlacesViewModel by lazy {
         ViewModelProvider(this).get(PlacesViewModel::class.java)
     }
 
@@ -53,13 +52,11 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         ItemTouchHelper(OnListItemSwipeListener(this))
             .attachToRecyclerView(placeListRecyclerView)
 
-
         addNewPlaceButton.setOnClickListener {
             addNewPlace()
         }
 
-        placesListModel.allPlaces.observe(this) { places ->
-            Log.d("MAIN_ACTIVITY", "Places $places")
+        placesViewModel.allPlaces.observe(this) { places ->
             places?.let {
                 placesRecyclerAdapter.places = places
                 placesRecyclerAdapter.notifyDataSetChanged()
@@ -67,9 +64,9 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
             }
         }
 
-        placesListModel.placesError.observe(this) { message ->
+        placesViewModel.userMessage.observe(this) { message ->
             if (message != null) {
-                Snackbar.make(findViewById(R.id.container), message, Snackbar.LENGTH_LONG).show()
+                Snackbar.make(findViewById(R.id.wishlist_container), message, Snackbar.LENGTH_LONG).show()
             }
         }
     }
@@ -79,10 +76,10 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         val placeName = newPlaceEditText.text.toString()
         val name = placeName.trim()
         if (name.isEmpty()) {
-            Toast.makeText(this, "Enter a place name", Toast.LENGTH_SHORT).show()
+            Snackbar.make(findViewById(R.id.wishlist_container), getString(R.string.no_place_name_error), Snackbar.LENGTH_LONG).show()
         } else {
             val place = Place(name)
-            placesListModel.addNewPlace(place)
+            placesViewModel.addNewPlace(place)
             clearForm()
             hideKeyboard()
         }
@@ -104,13 +101,13 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
 
     override fun onStarredStatusChanged(place: Place, isStarred: Boolean) {
         place.starred = isStarred
-        placesListModel.updatePlace(place)
+        placesViewModel.updatePlace(place)
     }
 
 
     override fun onListItemDeleted(position: Int) {
         val place = placesRecyclerAdapter.places[position]
-        placesListModel.deletePlace(place)
+        placesViewModel.deletePlace(place)
     }
 
 

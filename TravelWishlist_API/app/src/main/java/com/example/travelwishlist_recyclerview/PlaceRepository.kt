@@ -1,10 +1,6 @@
 package com.example.travelwishlist_recyclerview
 
 import android.util.Log
-import com.example.travelwishlist_recyclerview.place_service.ApiResult
-import com.example.travelwishlist_recyclerview.place_service.ApiStatus
-import com.example.travelwishlist_recyclerview.place_service.AuthorizationHeaderInterceptor
-import com.example.travelwishlist_recyclerview.place_service.PlaceService
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -28,42 +24,53 @@ class PlaceRepository {
 
     private val placeService = retrofit.create(PlaceService::class.java)
 
-    suspend fun <T: Any> apiCall(apiCallFunction: suspend ()-> Response<T>, failMessage: String): ApiResult<T> {
+    suspend fun <T: Any> apiCall(apiCallFunction: suspend () -> Response<T>, successMessage: String?, failMessage: String?): ApiResult<T> {
         try {
-            val response = apiCallFunction.invoke()
-            if (response.isSuccessful) {
-                return ApiResult(ApiStatus.SUCCESS, response.body(), null)
-            } else {
-                return ApiResult(ApiStatus.NOT_SUCCESS, null, failMessage)
+          val response = apiCallFunction.invoke()
+            if (response.isSuccessful) {  // connected, got data back
+                Log.d(TAG, "Response body {$response.body}")
+                return ApiResult(ApiStatus.SUCCESS, response.body(), successMessage)
             }
-        } catch (ex: Exception) {
-            return ApiResult(ApiStatus.ERROR, null, "Error connecting to server")
+            else {    // connected to server but server sent an error message
+                Log.e(TAG, "Server error ${response.errorBody()} ")
+                return ApiResult(ApiStatus.SERVER_ERROR, null, failMessage)
+            }
+        } catch (ex: Exception) {  // can't connect to server - network error
+            Log.e(TAG, "Error connecting to API server", ex)
+            return ApiResult(ApiStatus.NETWORK_ERROR, null, "Can't connect to server")
         }
     }
 
+
     suspend fun getAllPlaces(): ApiResult<List<Place>> {
-        return apiCall(placeService::getAllPlaces, "Error getting places")
+        return apiCall(placeService::getAllPlaces, null, "Error getting places")
     }
 
+
     suspend fun addPlace(place: Place): ApiResult<Place> {
-        return apiCall( { placeService.addPlace(place) }, "Error adding place ${place.name}")
+        return apiCall( { placeService.addPlace(place) }, "Place created!", "Error adding place ${place.name}")
     }
+
 
     suspend fun updatePlace(place: Place): ApiResult<Place> {
         return if (place.id == null) {
-            ApiResult(ApiStatus.ERROR, null, "Attempting to update a place with no ID")
+            ApiResult(ApiStatus.SERVER_ERROR, null, "Attempting to update a place with no ID")
         } else {
-            apiCall( { placeService.updatePlace(place, place.id) }, "Error updating place ${place.name}")
+            apiCall( { placeService.updatePlace(place, place.id) }, "Place updated!","Error updating place ${place.name}")
         }
     }
 
+
     suspend fun deletePlace(place: Place): ApiResult<Any> {
         return if (place.id == null) {
-            ApiResult(ApiStatus.ERROR, null, "Attempting to delete a place with no ID")
+            ApiResult(ApiStatus.SERVER_ERROR, null, "Attempting to delete a place with no ID")
         } else {
-           apiCall( { placeService.deletePlace(place.id) }, "Error deleting place ${place.name}")
+           apiCall( { placeService.deletePlace(place.id) }, "Place deleted", "Error deleting place ${place.name}")
         }
     }
+
+
+    // For reference - the original versions
 
 //  suspend fun getAllPlaces(): ApiResult<List<Place>> {
 //        try {
