@@ -24,11 +24,11 @@ class PlaceRepository {
 
     private val placeService = retrofit.create(PlaceService::class.java)
 
-    suspend fun <T: Any> apiCall(apiCallFunction: suspend () -> Response<T>, successMessage: String?, failMessage: String?): ApiResult<T> {
+    private suspend fun <T: Any> apiCall(apiCallFunction: suspend () -> Response<T>, successMessage: String?, failMessage: String?): ApiResult<T> {
         try {
           val response = apiCallFunction.invoke()
             if (response.isSuccessful) {  // connected, got data back
-                Log.d(TAG, "Response body {$response.body}")
+                Log.d(TAG, "Response body ${response.body()}")
                 return ApiResult(ApiStatus.SUCCESS, response.body(), successMessage)
             }
             else {    // connected to server but server sent an error message
