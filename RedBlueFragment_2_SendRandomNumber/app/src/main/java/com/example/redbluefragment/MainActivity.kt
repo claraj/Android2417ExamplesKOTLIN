@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.setFragmentResultListener(RANDOM_NUMBER_GENERATED, this) {
                 requestKey, bundle ->
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, BlueFragment.newInstance(), "BLUE")
-                        .addToBackStack("BLUE")
+                        .replace(R.id.fragment_container, BlueFragment.newInstance(), "BLUE_FRAGMENT") // what's on screen?
+                        .addToBackStack("BLUE_TRANSACTION") // where has the user been?
                         .commit()
         }
     }
