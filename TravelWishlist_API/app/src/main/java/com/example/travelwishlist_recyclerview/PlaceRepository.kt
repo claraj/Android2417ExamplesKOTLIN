@@ -26,7 +26,8 @@ class PlaceRepository {
 
     private suspend fun <T: Any> apiCall(apiCallFunction: suspend () -> Response<T>, successMessage: String?, failMessage: String?): ApiResult<T> {
         try {
-          val response = apiCallFunction.invoke()
+            val response = apiCallFunction()   // adding () is equivalent to calling .invoke()
+            // val response = apiCallFunction.invoke()
             if (response.isSuccessful) {  // connected, got data back
                 Log.d(TAG, "Response body ${response.body()}")
                 return ApiResult(ApiStatus.SUCCESS, response.body(), successMessage)
