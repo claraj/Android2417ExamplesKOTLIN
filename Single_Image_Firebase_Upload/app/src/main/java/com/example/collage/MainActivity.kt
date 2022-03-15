@@ -96,8 +96,9 @@ class MainActivity : AppCompatActivity() {
                 .addOnFailureListener {
                     Snackbar.make(this.mainView, "Error uploading image", Snackbar.LENGTH_LONG).show()
                     uploadProgressBar.visibility = View.GONE
-
                 }
+            // Can also add progress listeners https://firebase.google.com/docs/storage/android/upload-files
+
         } else {
             Snackbar.make(this.mainView, "Take a picture first", Snackbar.LENGTH_LONG).show()
         }
