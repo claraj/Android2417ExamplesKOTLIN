@@ -16,7 +16,7 @@ class Tree(
     @Exclude var documentReference: DocumentReference? = null) {
 
     override fun toString(): String {
-        return "$name, $dateSpotted, $location"
+        return "$name, $dateSpotted, location $location path ${documentReference?.path}"
     }
 
     fun latLong(): LatLng? {

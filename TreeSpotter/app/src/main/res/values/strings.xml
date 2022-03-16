@@ -8,4 +8,5 @@
     <string name="tree_added">%1$s tree added!</string>
     <string name="confirm_delete_tree">Delete tree %1$s?</string>
     <string name="delete">Delete?</string>
+    <string name="give_location_permission">Enable location for this app to add tree</string>
 </resources>

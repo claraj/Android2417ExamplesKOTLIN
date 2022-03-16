@@ -31,10 +31,10 @@ import java.util.*
 private const val TAG = "TREE_MAP_FRAGMENT"
 
 class TreeMapFragment : Fragment() {
+    private  val REQUEST_PERMISSION_ACCESS_FINE_LOCATION = 0
 
-    private val REQUEST_PERMISSION_ACCESS_FINE_LOCATION = 0
     private var locationPermissionGranted = false
-    private var movedMapToUserLocation = false
+    private var movedMapToUserLocation = false  // move map to user's location when map first loads.
 
     private var map: GoogleMap? = null
     private var treeList = listOf<Tree>()
@@ -67,6 +67,7 @@ class TreeMapFragment : Fragment() {
         updateMap()
     }
 
+
     private fun requestDeleteTree(tree: Tree) {
         AlertDialog.Builder(requireActivity())
             .setTitle(R.string.delete)
@@ -84,10 +85,10 @@ class TreeMapFragment : Fragment() {
 
     private fun updateMap(){
 
-        // Is location permission granted?
+        // Was location permission granted?
 
         if (locationPermissionGranted) {
-            if (!movedMapToUserLocation) {
+            if (!movedMapToUserLocation) {   // Do this when the map opens, but don't keep moving it.
                 moveMapToUserLocation()
             }
             setAddTreeButtonEnabled(true)
@@ -144,14 +145,14 @@ class TreeMapFragment : Fragment() {
                 map?.isMyLocationEnabled = true   // show blue dot at user's location
                 map?.uiSettings?.isMyLocationButtonEnabled = true  // show move to my location crosshair icon
 
-                fusedLocationProvider?.lastLocation?.addOnCompleteListener(requireActivity()) { task ->
-                    val location = task.result
+                fusedLocationProvider?.lastLocation?.addOnCompleteListener(requireActivity()) { getLocationTask ->
+                    val location = getLocationTask.result
                     if (location != null) {
                         Log.d(TAG, "User location $location")
                         val center = LatLng(location.latitude, location.longitude)
 
                         // Zoom level 1 = whole world, 20 = city blocks. Adjust this number if desired
-                        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 8f))?.also {
+                        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 10f))?.also {
                             movedMapToUserLocation = true
                         }
                     } else {
@@ -162,39 +163,48 @@ class TreeMapFragment : Fragment() {
             }
 
         } catch (ex: SecurityException) {
-            Log.e(TAG, "Showing user's location on map - permission not requested", ex)
+            Log.e(TAG, "Showing user's location on map - permission not granted", ex)
             locationPermissionGranted = false
         }
     }
 
 
     private fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationPermissionGranted = true
+            Log.d(TAG, "Location permission already granted")
             updateMap()
         } else {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_PERMISSION_ACCESS_FINE_LOCATION)
+            Log.d(TAG, "Requesting location permission")
+            requestPermissions(
+              //  requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_PERMISSION_ACCESS_FINE_LOCATION)
         }
     }
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-
         // Was this a request to access location?
+        Log.d(TAG, "Request permission result")
+
         if (requestCode == REQUEST_PERMISSION_ACCESS_FINE_LOCATION) {
             // was permission granted?
             if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
                 locationPermissionGranted = true
                 setAddTreeButtonEnabled(true)
-                Log.d("MAP", "location permission granted")
+                Log.d(TAG, "location permission granted")
                 fusedLocationProvider = LocationServices.getFusedLocationProviderClient(requireActivity())
             } else {
-                Log.d("MAP", "location permission NOT granted")
+                Log.d(TAG, "location permission NOT granted")
+                showSnackbar(getString(R.string.give_location_permission))
                 locationPermissionGranted = false
             }
         }
 
-        updateMap()
+        updateMap()  // will move to location, if permission granted, or show a "enable permission" toast.
     }
 
 
@@ -202,7 +212,9 @@ class TreeMapFragment : Fragment() {
     private fun addTreeAtLocation() {
 
         if (fusedLocationProvider == null)  { return }
-        if (!locationPermissionGranted)  { return }
+        if (!locationPermissionGranted)  {
+            showSnackbar(getString(R.string.give_location_permission))
+        }
 
         try {
             fusedLocationProvider?.lastLocation?.addOnCompleteListener(requireActivity()) { task ->
