@@ -2,6 +2,7 @@ package com.example.treespotter
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 
@@ -58,8 +59,26 @@ class TreeMapFragment : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         Log.d(TAG, "Map ready")
+        googleMap.setOnInfoWindowClickListener { marker ->
+            val treeForMarker = marker.tag as Tree
+            requestDeleteTree(treeForMarker)
+        }
         map = googleMap
         updateMap()
+    }
+
+    private fun requestDeleteTree(tree: Tree) {
+        AlertDialog.Builder(requireActivity())
+            .setTitle(R.string.delete)
+            .setMessage(getString(R.string.confirm_delete_tree, tree.name))
+            .setPositiveButton(android.R.string.ok) { dialog, id ->
+                treeViewModel.deleteTree(tree)
+            }
+            .setNegativeButton(android.R.string.cancel) { dialog, id ->
+                // user cancels, no action taken
+            }
+            .create()
+            .show()
     }
 
 
@@ -103,9 +122,10 @@ class TreeMapFragment : Fragment() {
 
         for (tree in treeList) {
             tree.latLong()?.let { latLong ->
-                val mo = MarkerOptions().position(latLong).title(tree.name)
-                map?.addMarker(mo)?.also { marker ->
+                val markerOptions = MarkerOptions().position(latLong).title(tree.name).snippet("Spotted on ${tree.dateSpotted}")
+                map?.addMarker(markerOptions)?.also { marker ->
                     treeMarkers.add(marker)
+                    marker.tag = tree
                 }
             }
         }
@@ -211,7 +231,7 @@ class TreeMapFragment : Fragment() {
     private fun getTreeName(): String {
         // Return a random tree name
         // TODO ask user for info about tree
-        return listOf("Fir", "Pine", "Cedar", "Spruce", "Redwood").random()
+        return listOf("Fir", "Pine", "Cedar", "Spruce", "Redwood", "Bristlecone", "Giant Sequoia", "Juniper").random()
     }
 
 

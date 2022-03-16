@@ -6,5 +6,6 @@
     <string name="no_location">No location available</string>
     <string name="add_tree">Add Tree</string>
     <string name="tree_added">%1$s tree added!</string>
-
+    <string name="confirm_delete_tree">Delete tree %1$s?</string>
+    <string name="delete">Delete?</string>
 </resources>
