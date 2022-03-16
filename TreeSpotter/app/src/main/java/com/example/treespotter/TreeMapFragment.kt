@@ -11,6 +11,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -83,7 +85,7 @@ class TreeMapFragment : Fragment() {
     }
 
 
-    private fun updateMap(){
+    private fun updateMap(){   // Show user's location, if location enabled, and draw tree markers
 
         // Was location permission granted?
 
@@ -109,6 +111,7 @@ class TreeMapFragment : Fragment() {
         }
     }
 
+
     private fun drawTrees() {
         if (map == null) { return }
 
@@ -126,7 +129,7 @@ class TreeMapFragment : Fragment() {
                 val markerOptions = MarkerOptions().position(latLong).title(tree.name).snippet("Spotted on ${tree.dateSpotted}")
                 map?.addMarker(markerOptions)?.also { marker ->
                     treeMarkers.add(marker)
-                    marker.tag = tree
+                    marker.tag = tree   // tag
                 }
             }
         }
@@ -178,33 +181,25 @@ class TreeMapFragment : Fragment() {
             updateMap()
         } else {
             Log.d(TAG, "Requesting location permission")
-            requestPermissions(
-              //  requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_PERMISSION_ACCESS_FINE_LOCATION)
-        }
-    }
 
+            val requestLocationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                if (isGranted) {
+                    locationPermissionGranted = true
+                    setAddTreeButtonEnabled(true)
+                    Log.d(TAG, "location permission granted")
+                    fusedLocationProvider = LocationServices.getFusedLocationProviderClient(requireActivity())
+                } else {
+                    Log.d(TAG, "location permission NOT granted")
+                    showSnackbar(getString(R.string.give_location_permission))
+                    locationPermissionGranted = false
+                }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        // Was this a request to access location?
-        Log.d(TAG, "Request permission result")
+                updateMap()  // will move to location, if permission granted, or show a "enable permission" toast.
 
-        if (requestCode == REQUEST_PERMISSION_ACCESS_FINE_LOCATION) {
-            // was permission granted?
-            if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
-                locationPermissionGranted = true
-                setAddTreeButtonEnabled(true)
-                Log.d(TAG, "location permission granted")
-                fusedLocationProvider = LocationServices.getFusedLocationProviderClient(requireActivity())
-            } else {
-                Log.d(TAG, "location permission NOT granted")
-                showSnackbar(getString(R.string.give_location_permission))
-                locationPermissionGranted = false
             }
-        }
 
-        updateMap()  // will move to location, if permission granted, or show a "enable permission" toast.
+            requestLocationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
     }
 
 
@@ -230,12 +225,12 @@ class TreeMapFragment : Fragment() {
                     treeViewModel.addTree(tree)
                     showSnackbar(getString(R.string.tree_added, treeName))
                 } else {
-                    showSnackbar(getString(R.string.no_location))  // todo ask user to turn on device location
+                    showSnackbar(getString(R.string.no_location))
                 }
             }
         } catch (ex: SecurityException) {
             Log.e(TAG, "Adding tree at location - permission not granted", ex)
-            // todo request permission again
+            // todo consider requesting permission again - but avoid nagging user.
         }
     }
 
@@ -279,6 +274,7 @@ class TreeMapFragment : Fragment() {
 
         // Request permission to access device location
         requestLocationPermission()
+
     }
 
 
