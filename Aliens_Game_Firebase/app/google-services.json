@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "777080993655",
+    "project_id": "aliens-2022",
+    "storage_bucket": "aliens-2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777080993655:android:d5f3b7ba17adfca6861372",
+        "android_client_info": {
+          "package_name": "com.example.aliens_game_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777080993655-4h8a11v9saa7m5qoi83elmocih4t6db8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRRKzmsIcmkiiVO-e5kwJ1zS74VscGueU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777080993655-4h8a11v9saa7m5qoi83elmocih4t6db8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777080993655:android:32fc85c1b94a85d3861372",
+        "android_client_info": {
+          "package_name": "com.example.treespotter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777080993655-4h8a11v9saa7m5qoi83elmocih4t6db8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRRKzmsIcmkiiVO-e5kwJ1zS74VscGueU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777080993655-4h8a11v9saa7m5qoi83elmocih4t6db8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

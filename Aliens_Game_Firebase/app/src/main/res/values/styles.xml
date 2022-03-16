@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Button">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/green</item>
+        <item name="android:padding">@dimen/button_padding</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <dimen name="button_padding">10dp</dimen>
+</resources>
