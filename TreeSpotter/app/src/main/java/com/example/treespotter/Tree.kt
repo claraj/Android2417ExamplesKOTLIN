@@ -11,8 +11,7 @@ import java.util.*
 // Since there's no guarantees that a Firebase document will have any of these fields,
 // we can't require that a Tree object must contain them
 
-
-class Tree(
+data class Tree(
     val name: String? = null,
     val dateSpotted: Date? = null,
     val location: GeoPoint? = null,
@@ -20,15 +19,9 @@ class Tree(
     @get:Exclude @set:Exclude var documentReference: DocumentReference? = null  // don't need to upload this back to firebase
 ) {
 
-    override fun toString(): String {
-        return "$name, $dateSpotted, location $location path ${documentReference?.path} favorite? $favorite"
-    }
-
     fun latLong(): LatLng? {
         return location?.let { LatLng(it.latitude, location.longitude) }
     }
 
 }
-
-// Could also use a data class
 
