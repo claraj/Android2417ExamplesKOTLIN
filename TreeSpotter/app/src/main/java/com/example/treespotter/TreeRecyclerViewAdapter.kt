@@ -1,20 +1,32 @@
 package com.example.treespotter
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 
 private const val TAG = "TREE_RECYCLER_ADAPTER"
 
-class TreeRecyclerViewAdapter(var trees: List<Tree>) :
+
+class TreeRecyclerViewAdapter(var trees: List<Tree>, val heartTreeListener: (Tree, Boolean) -> Unit) :
     RecyclerView.Adapter<TreeRecyclerViewAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: View) :
-        RecyclerView.ViewHolder(view) {
-        val treeNameView: TextView = view.findViewById(R.id.tree_name)
-        val dateSpottedView: TextView = view.findViewById(R.id.date_spotted)
+    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+
+        fun bind(tree: Tree) {
+            view.findViewById<TextView>(R.id.tree_name).text = tree.name
+            view.findViewById<TextView>(R.id.date_spotted).text = "${tree.dateSpotted}"
+            view.findViewById<CheckBox>(R.id.heart_check).apply {
+                isChecked = tree.favorite
+                setOnCheckedChangeListener { checkbox, isChecked ->
+                    Log.d(TAG, "Setting ${tree.name} favorite $isChecked")
+                    heartTreeListener(tree, isChecked)
+                }
+            }
+        }
     }
 
 
@@ -26,8 +38,8 @@ class TreeRecyclerViewAdapter(var trees: List<Tree>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tree = trees[position]
-        holder.treeNameView.text = tree.name
-        holder.dateSpottedView.text = tree.dateSpotted.toString()
+        holder.bind(tree)
+
     }
 
 

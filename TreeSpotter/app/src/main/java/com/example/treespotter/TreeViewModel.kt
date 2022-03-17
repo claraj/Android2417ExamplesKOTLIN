@@ -62,4 +62,11 @@ class TreeViewModel: ViewModel() {
     fun deleteTree(tree: Tree) {
         tree.documentReference?.delete()
     }
+
+
+    fun setIsFavorite(tree: Tree, favorite: Boolean) {
+        tree.favorite = favorite
+        tree.documentReference?.update("favorite", favorite)
+    }
+
 }

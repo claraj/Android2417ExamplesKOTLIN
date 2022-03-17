@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
@@ -33,7 +34,6 @@ import java.util.*
 private const val TAG = "TREE_MAP_FRAGMENT"
 
 class TreeMapFragment : Fragment() {
-    private  val REQUEST_PERMISSION_ACCESS_FINE_LOCATION = 0
 
     private var locationPermissionGranted = false
     private var movedMapToUserLocation = false  // move map to user's location when map first loads.
@@ -125,11 +125,20 @@ class TreeMapFragment : Fragment() {
         treeMarkers.clear()
 
         for (tree in treeList) {
+
+            // Show heart icon for the marker if favorite, tree icon otherwise
+            val iconId = if (tree.favorite) R.drawable.filled_heart_small else R.drawable.tree_small
+
             tree.latLong()?.let { latLong ->
-                val markerOptions = MarkerOptions().position(latLong).title(tree.name).snippet("Spotted on ${tree.dateSpotted}")
+                val markerOptions = MarkerOptions()
+                    .position(latLong)
+                    .title(tree.name)
+                    .snippet("Spotted on ${tree.dateSpotted}")
+                    .icon(BitmapDescriptorFactory.fromResource(iconId))
+
                 map?.addMarker(markerOptions)?.also { marker ->
                     treeMarkers.add(marker)
-                    marker.tag = tree   // tag
+                    marker.tag = tree   // tag can be used to store any object.
                 }
             }
         }
@@ -223,6 +232,7 @@ class TreeMapFragment : Fragment() {
                         location = GeoPoint(location.latitude, location.longitude)
                     )
                     treeViewModel.addTree(tree)
+                    moveMapToUserLocation()  // so user can see new marker
                     showSnackbar(getString(R.string.tree_added, treeName))
                 } else {
                     showSnackbar(getString(R.string.no_location))

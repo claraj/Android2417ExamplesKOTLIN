@@ -22,7 +22,7 @@
         android:layout_marginBottom="32dp"
         android:clickable="false"
         android:focusable="false"
-        android:src="@drawable/ever_tree_64"
+        android:src="@drawable/tree"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="@string/add_tree" />

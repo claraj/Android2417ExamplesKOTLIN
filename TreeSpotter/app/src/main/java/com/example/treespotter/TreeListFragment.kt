@@ -24,7 +24,9 @@ class TreeListFragment : Fragment() {
         if (recyclerView !is RecyclerView) { throw RuntimeException("TreeListFragment View must be a RecyclerView") }
 
         val trees = listOf<Tree>()
-        val adapter = TreeRecyclerViewAdapter(trees)
+        val adapter = TreeRecyclerViewAdapter(trees) { tree, isFavorite ->
+            treeViewModel.setIsFavorite(tree, isFavorite)
+        }
 
         treeViewModel.latestTrees.observe(requireActivity()) { treeList ->
             adapter.trees = treeList

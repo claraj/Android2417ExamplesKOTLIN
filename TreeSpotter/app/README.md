@@ -1,2 +1,0 @@
-Deciduous tree Icon: <a target="_blank" href="https://icons8.com/icon/zkWITx6BLmBi/tree">Tree</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-Evergreen tree icon: <a target="_blank" href="https://icons8.com/icon/j7aOtRJ7Bnnr/tree">Tree</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
