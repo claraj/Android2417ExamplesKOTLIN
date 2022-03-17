@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 private const val TAG = "MAIN_ACTIVITY"
-const val SHOW_TREE_INFO_REQUEST_KEY = "show tree"
 
 class MainActivity : AppCompatActivity() {
 
