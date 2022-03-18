@@ -33,21 +33,27 @@ private const val TAG = "TREE_MAP_FRAGMENT"
 
 class TreeMapFragment : Fragment() {
 
-    private var locationPermissionGranted = false
-    private var movedMapToUserLocation = false  // move map to user's location when map first loads.
-
-    private var map: GoogleMap? = null
-    private var treeList = listOf<Tree>()
-
     private lateinit var addTreeButton: FloatingActionButton
 
+    // if already granted, don't need to ask again
+    private var locationPermissionGranted = false
+
+    // track if have already moved map to user's location when map first loads.
+    private var movedMapToUserLocation = false
+
+    // gets user's location
+    private var fusedLocationProvider: FusedLocationProviderClient? = null
+
+    // map, and list of markers on the map. Storing all markers in a list to keep a reference to them
+    private var map: GoogleMap? = null
     private val treeMarkers = mutableListOf<Marker>()
+
+    private var treeList = listOf<Tree>()
 
     private val treeViewModel: TreeViewModel by lazy {
         ViewModelProvider(requireActivity()).get(TreeViewModel::class.java)
     }
 
-    private var fusedLocationProvider: FusedLocationProviderClient? = null
 
     private val mapReadyCallback = OnMapReadyCallback { googleMap ->
         /**
@@ -84,8 +90,6 @@ class TreeMapFragment : Fragment() {
 
 
     private fun updateMap(){   // Show user's location, if location enabled, and draw tree markers
-
-        // Was location permission granted?
 
         if (locationPermissionGranted) {
             if (!movedMapToUserLocation) {   // Do this when the map opens, but don't keep moving it.
@@ -146,10 +150,9 @@ class TreeMapFragment : Fragment() {
     @SuppressLint("MissingPermission")
     private fun moveMapToUserLocation() {
 
-        if (map == null) { return }
+        if (map == null) { return }   // in case location is available before map is ready
 
         try {
-
             if (locationPermissionGranted) {
                 fusedLocationProvider = LocationServices.getFusedLocationProviderClient(requireActivity())
                 map?.isMyLocationEnabled = true   // show blue dot at user's location
@@ -160,16 +163,14 @@ class TreeMapFragment : Fragment() {
                     if (location != null) {
                         Log.d(TAG, "User location $location")
                         val center = LatLng(location.latitude, location.longitude)
-
-                        // Zoom level 1 = whole world, 20 = city blocks. Adjust this number if desired
-                        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 10f))?.also {
+                        val zoomLevel = 10f // Zoom level 1 = whole world, 20 = city blocks. Adjust if desired
+                        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(center, zoomLevel))?.also {
                             movedMapToUserLocation = true
                         }
                     } else {
                         showSnackbar(getString(R.string.no_location))
                     }
                 }
-
             }
 
         } catch (ex: SecurityException) {
@@ -243,6 +244,8 @@ class TreeMapFragment : Fragment() {
     }
 
 
+
+
     private fun getTreeName(): String {
         // Return a random tree name
         // TODO ask user for info about tree
@@ -256,21 +259,15 @@ class TreeMapFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val mainView = inflater.inflate(R.layout.fragment_map, container, false)
+        val mainView = inflater.inflate(R.layout.fragment_tree_map, container, false)
 
-        addTreeButton = mainView.findViewById<FloatingActionButton>(R.id.add_tree)
+        addTreeButton = mainView.findViewById(R.id.add_tree)
         addTreeButton.setOnClickListener {
             addTreeAtLocation()
         }
 
-        setAddTreeButtonEnabled(false)   // will be invisible until location is available
+        setAddTreeButtonEnabled(false)   // will be un-clickable until location is available
 
-        return mainView
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment?
         mapFragment?.getMapAsync(mapReadyCallback)
 
@@ -283,6 +280,7 @@ class TreeMapFragment : Fragment() {
         // Request permission to access device location
         requestLocationPermission()
 
+        return mainView
     }
 
 
