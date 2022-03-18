@@ -11,10 +11,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -51,7 +49,7 @@ class TreeMapFragment : Fragment() {
 
     private var fusedLocationProvider: FusedLocationProviderClient? = null
 
-    private val callback = OnMapReadyCallback { googleMap ->
+    private val mapReadyCallback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
          * This callback is triggered when the map is ready to be used.
@@ -273,8 +271,8 @@ class TreeMapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment?
+        mapFragment?.getMapAsync(mapReadyCallback)
 
         // Draw trees regardless of location availability
         treeViewModel.latestTrees.observe(requireActivity()) { trees ->
