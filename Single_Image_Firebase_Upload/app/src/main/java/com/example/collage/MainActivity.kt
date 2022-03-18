@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
 
     private val NEW_PHOTO_PATH_KEY = "new photo path key"
     private val VISIBLE_IMAGE_PATH_KEY = "visible image path key"
+    private val IMAGE_FILE_NAME_KEY = "image file name key"
+    private val PHOTO_URI_KEY = "photo uri key"
 
     private val cameraActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result -> handleImage(result)
@@ -55,6 +57,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        newPhotoPath = savedInstanceState?.getString(NEW_PHOTO_PATH_KEY)
+        visibleImagePath = savedInstanceState?.getString(VISIBLE_IMAGE_PATH_KEY)
+        imageFilename = savedInstanceState?.getString(IMAGE_FILE_NAME_KEY)
+        photoUri = savedInstanceState?.getParcelable(PHOTO_URI_KEY) as Uri?
 
         storage = Firebase.storage
 
@@ -67,6 +74,8 @@ class MainActivity : AppCompatActivity() {
         imageButton1 = findViewById(R.id.imageButton1)
         uploadImageFab = findViewById(R.id.upload_image)
         uploadProgressBar = findViewById(R.id.upload_progress_bar)
+
+        newPhotoPath?.let { loadImage(imageButton1, it) }
 
         imageButton1.setOnClickListener {
             takePicture()
@@ -109,6 +118,8 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         outState.putString(NEW_PHOTO_PATH_KEY, newPhotoPath)
         outState.putString(VISIBLE_IMAGE_PATH_KEY, visibleImagePath)
+        outState.putString(IMAGE_FILE_NAME_KEY, imageFilename)
+        outState.putParcelable(PHOTO_URI_KEY, photoUri)
     }
 
 
