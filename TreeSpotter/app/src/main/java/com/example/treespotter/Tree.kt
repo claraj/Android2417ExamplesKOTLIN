@@ -15,13 +15,6 @@ data class Tree(
     val name: String? = null,
     val dateSpotted: Date? = null,
     val location: GeoPoint? = null,
-    var favorite: Boolean = false,   // names starting with is confuse Firebase.
+    var favorite: Boolean? = null,   // names starting with is confuse Firebase.
     @get:Exclude @set:Exclude var documentReference: DocumentReference? = null  // don't need to upload this back to firebase
-) {
-
-    fun latLong(): LatLng? {
-        return location?.let { LatLng(it.latitude, location.longitude) }
-    }
-
-}
-
+)

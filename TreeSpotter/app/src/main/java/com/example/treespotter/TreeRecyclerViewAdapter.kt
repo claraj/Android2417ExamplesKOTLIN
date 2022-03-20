@@ -20,7 +20,7 @@ class TreeRecyclerViewAdapter(var trees: List<Tree>, val heartTreeListener: (Tre
             view.findViewById<TextView>(R.id.tree_name).text = tree.name
             view.findViewById<TextView>(R.id.date_spotted).text = "${tree.dateSpotted}"
             view.findViewById<CheckBox>(R.id.heart_check).apply {
-                isChecked = tree.favorite
+                isChecked = tree.favorite ?: false
                 setOnCheckedChangeListener { checkbox, isChecked ->
                     Log.d(TAG, "Setting ${tree.name} favorite $isChecked")
                     heartTreeListener(tree, isChecked)

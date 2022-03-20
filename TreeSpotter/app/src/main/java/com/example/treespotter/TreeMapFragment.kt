@@ -129,11 +129,13 @@ class TreeMapFragment : Fragment() {
         for (tree in treeList) {
 
             // Show heart icon for the marker if favorite, tree icon otherwise
-            val iconId = if (tree.favorite) R.drawable.filled_heart_small else R.drawable.tree_small
 
-            tree.latLong()?.let { latLong ->
+            val isFavorite = tree.favorite ?: false
+            val iconId = if (isFavorite) R.drawable.filled_heart_small else R.drawable.tree_small
+
+            tree.location?.let { location ->
                 val markerOptions = MarkerOptions()
-                    .position(latLong)
+                    .position(LatLng(location.latitude, location.longitude))
                     .title(tree.name)
                     .snippet("Spotted on ${tree.dateSpotted}")
                     .icon(BitmapDescriptorFactory.fromResource(iconId))
@@ -154,9 +156,10 @@ class TreeMapFragment : Fragment() {
 
         try {
             if (locationPermissionGranted) {
-                fusedLocationProvider = LocationServices.getFusedLocationProviderClient(requireActivity())
                 map?.isMyLocationEnabled = true   // show blue dot at user's location
                 map?.uiSettings?.isMyLocationButtonEnabled = true  // show move to my location crosshair icon
+                map?.uiSettings?.isZoomControlsEnabled = true // show + and - icons to zoom in and out
+
 
                 fusedLocationProvider?.lastLocation?.addOnCompleteListener(requireActivity()) { getLocationTask ->
                     val location = getLocationTask.result
@@ -184,22 +187,26 @@ class TreeMapFragment : Fragment() {
         if (ContextCompat.checkSelfPermission(
                 requireActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationPermissionGranted = true
+
             Log.d(TAG, "Location permission already granted")
+            locationPermissionGranted = true
+            fusedLocationProvider = LocationServices.getFusedLocationProviderClient(requireActivity())
+            setAddTreeButtonEnabled(true)
             updateMap()
+
         } else {
             Log.d(TAG, "Requesting location permission")
 
             val requestLocationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
                 if (isGranted) {
-                    locationPermissionGranted = true
-                    setAddTreeButtonEnabled(true)
                     Log.d(TAG, "location permission granted")
+                    locationPermissionGranted = true
                     fusedLocationProvider = LocationServices.getFusedLocationProviderClient(requireActivity())
+                    setAddTreeButtonEnabled(true)
                 } else {
                     Log.d(TAG, "location permission NOT granted")
-                    showSnackbar(getString(R.string.give_location_permission))
                     locationPermissionGranted = false
+                    showSnackbar(getString(R.string.give_location_permission))
                 }
 
                 updateMap()  // will move to location, if permission granted, or show a "enable permission" toast.
