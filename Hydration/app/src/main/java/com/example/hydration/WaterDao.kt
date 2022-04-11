@@ -3,7 +3,7 @@ package com.example.hydration
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
-@Dao  // data access object
+@Dao  // data access object   -  important
 interface WaterDao {
 
     // Other apps may omit the onConflict so an error is reported

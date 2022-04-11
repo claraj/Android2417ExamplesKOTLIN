@@ -9,8 +9,6 @@ import android.widget.ImageButton
 import android.widget.RatingBar
 import java.time.DayOfWeek
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_DAY_OF_WEEK = "day_of_week"
 
 /**
@@ -93,11 +91,11 @@ class HydrationFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param dayOfWeek The name of the day of the week this Fragment should display data for.
+
          * @return A new instance of fragment HydrationFragment.
          */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(dayOfWeek: String) =
             HydrationFragment().apply {

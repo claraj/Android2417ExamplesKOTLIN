@@ -11,5 +11,5 @@ data class WaterRecord(
     val day: String,
     @NonNull
     var glasses: Int
-    )    // free toString function
+    )    // we get a free toString function
 

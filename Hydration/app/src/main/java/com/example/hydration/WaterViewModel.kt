@@ -5,6 +5,10 @@ import kotlinx.coroutines.launch
 
 class WaterViewModel(private val repository: WaterRepository): ViewModel() {
 
+    // more flexible
+    // easier to test
+    // unit tests - automatic tests
+
     val allRecords = repository.getAllRecords().asLiveData()
 
     fun insertNewRecord(record: WaterRecord) {
@@ -12,6 +16,7 @@ class WaterViewModel(private val repository: WaterRepository): ViewModel() {
             repository.insert(record)
         }
     }
+
     fun updateRecord(record: WaterRecord) {
         viewModelScope.launch {
             repository.update(record)
@@ -32,6 +37,9 @@ class WaterViewModel(private val repository: WaterRepository): ViewModel() {
 //        return repository.getAllRecords().asLiveData()
 //    }
 }
+
+/// Why not instantiate the repository in the ViewModel?
+//
 
 class WaterViewModelFactory(private val repository: WaterRepository): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
