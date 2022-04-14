@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import java.lang.RuntimeException
 
 private const val TAG = "TREE_LIST_FRAGMENT"
