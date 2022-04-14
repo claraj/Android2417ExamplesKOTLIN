@@ -1,5 +1,6 @@
 package com.example.treespotter
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,8 +15,17 @@ private const val TAG = "TREE_LIST_FRAGMENT"
 
 class TreeListFragment : Fragment() {
 
-    private val treeViewModel: TreeViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(TreeViewModel::class.java)
+    private lateinit var treeViewModel: TreeViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        // this line will fail if the Fragment is not attached to an activity,
+        // and we need the application to get the TreeRepository.
+        val application = requireActivity().application as TreeApplication
+
+        treeViewModel = TreeViewModel.TreeViewModelFactory(application.treeRepository)
+            .create(TreeViewModel::class.java)
     }
 
 

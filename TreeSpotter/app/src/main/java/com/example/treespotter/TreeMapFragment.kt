@@ -3,6 +3,7 @@ package com.example.treespotter
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 
@@ -26,6 +27,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 
@@ -50,10 +53,19 @@ class TreeMapFragment : Fragment() {
 
     private var treeList = listOf<Tree>()
 
-    private val treeViewModel: TreeViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(TreeViewModel::class.java)
-    }
 
+    private lateinit var treeViewModel: TreeViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        // this line will fail if the Fragment is not attached to an activity,
+         // and we need the application to get the TreeRepository.
+        val application = requireActivity().application as TreeApplication
+
+        treeViewModel = TreeViewModel.TreeViewModelFactory(application.treeRepository)
+                .create(TreeViewModel::class.java)
+    }
 
     private val mapReadyCallback = OnMapReadyCallback { googleMap ->
         /**
@@ -239,6 +251,7 @@ class TreeMapFragment : Fragment() {
                     )
                     treeViewModel.addTree(tree)
                     moveMapToUserLocation()  // so user can see new marker
+                    // TODO - recommended to use callbacks to verify successful addition
                     showSnackbar(getString(R.string.tree_added, treeName))
                 } else {
                     showSnackbar(getString(R.string.no_location))
