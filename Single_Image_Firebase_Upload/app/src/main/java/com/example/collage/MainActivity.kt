@@ -84,7 +84,6 @@ class MainActivity : AppCompatActivity() {
         uploadImageFab.setOnClickListener {
             uploadImage()
         }
-
     }
 
     private fun uploadImage() {

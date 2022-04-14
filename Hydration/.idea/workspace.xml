@@ -14,8 +14,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e32f5212-d74a-4382-b0e6-d5eb68e2cda0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/hydration/WaterDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/hydration/WaterDao.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/hydration/WaterViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/hydration/WaterViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/.gradle/7.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/.gradle/7.2/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/.gradle/7.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/.gradle/7.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/GameFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/GameFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/HighScoreRecyclerViewAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/HighScoreRecyclerViewAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/HighScoresViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/HighScoresViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/Player.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/Player.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/Score.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/Score.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/WelcomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Aliens_Game_Firebase/app/src/main/java/com/example/aliens_game_firebase/WelcomeFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Collage/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Collage/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Dialog_Examples/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Dialog_Examples/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Dialog_Examples/app/src/main/java/com/example/dialog_examples/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Dialog_Examples/app/src/main/java/com/example/dialog_examples/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Single_Image_Firebase_Upload/app/src/main/java/com/example/collage/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Single_Image_Firebase_Upload/app/src/main/java/com/example/collage/MainActivity.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +55,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="25I3Iu20UKEkJiDHBUw5gTUiYe8" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
