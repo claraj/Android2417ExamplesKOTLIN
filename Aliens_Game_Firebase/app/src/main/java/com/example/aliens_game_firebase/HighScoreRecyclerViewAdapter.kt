@@ -21,8 +21,8 @@ class HighScoreRecyclerViewAdapter(var highScores: List<Score>, private val play
 
     override fun onBindViewHolder(holder: HighScoreViewHolder, position: Int) {
         val score = highScores[position]
-        holder.playerNameTextView.text = score.playerName
-        holder.scoreTextView.text = "$score.score"
+        holder.playerNameTextView.text = "name " + score.playerName
+        holder.scoreTextView.text = "${score.score}"
         if (score.playerId == playerId) {
             val highlightColor = holder.playerNameTextView.context.getColor(R.color.purple_500)
             holder.playerNameTextView.setTextColor(highlightColor)

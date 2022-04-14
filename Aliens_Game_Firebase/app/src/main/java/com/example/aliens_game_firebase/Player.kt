@@ -1,3 +1,5 @@
 package com.example.aliens_game_firebase
 
-data class Player(val name: String? = null)
+import java.util.*
+
+data class Player(val name: String? = null, val dateCreated: Date? = Date())

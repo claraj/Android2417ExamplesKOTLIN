@@ -62,6 +62,11 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "game done show scores")
 
             LocalStorage.writeInt(STORAGE_PLAYER_NAME_KEY, score, this)
+//            val playerId = LocalStorage.fetchString("PLAYER_ID", this)
+
+            val id = highScoresViewModel.playerId.value
+            val scoreOb = Score(score = score, playerId = id)
+            highScoresViewModel.setPlayerScore(scoreOb)
 
             supportFragmentManager
                 .beginTransaction()

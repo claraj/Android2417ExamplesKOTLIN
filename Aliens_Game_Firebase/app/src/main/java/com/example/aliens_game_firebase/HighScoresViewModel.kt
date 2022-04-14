@@ -69,7 +69,9 @@ class HighScoresViewModel: ViewModel() {
     fun saveNewPlayer(player: Player) {
         playersReference.add(player).addOnCompleteListener { playerDocumentReference ->
             if (playerDocumentReference.isSuccessful) {
-                playerId.postValue(playerDocumentReference.result?.id)
+                val id = playerDocumentReference.result?.id
+                playerId.postValue(id!!)
+                Log.d(TAG, "New player id is $id")
             } else {
                 Log.e(TAG, "Error saving player to Firebase", playerDocumentReference.exception)
             }
@@ -77,22 +79,32 @@ class HighScoresViewModel: ViewModel() {
     }
 
 
-    fun setPlayerScore(playerId: String, score: Score) {
+    fun setPlayerScore(score: Score) {
         // is this player's score higher than their previous best? if so, overwrite
-         highScoresReference.document(playerId).get().addOnSuccessListener { highScoreForPlayerDocument ->
-             if (highScoreForPlayerDocument.exists()) {
-                 val previousBestScore = highScoreForPlayerDocument.toObject(Score::class.java)
-                 // if there is a previous best score, and the previous best is lower than the
-                 // new score, then update the document with the new score
-                 if (previousBestScore?.score != null && previousBestScore.score < score.score){
-                     highScoreForPlayerDocument.reference.update("score", score)
-                 } else {
-                     highScoresReference.add(score)
-                 }
+        score.playerId?.let {
+            highScoresReference.document(it).get().addOnSuccessListener { highScoreForPlayerDocument ->
+                if (highScoreForPlayerDocument.exists()) {
+                    val previousBestScore = highScoreForPlayerDocument.toObject(Score::class.java)
+                    // if there is a previous best score, and the previous best is lower than the
+                    // new score, then update the document with the new score
+                    if (previousBestScore?.score != null && previousBestScore.score < score.score){
+                        highScoreForPlayerDocument.reference.update("score", score)
+                        Log.d(TAG, "New high score for user, updating firebase document")
+                    }
+                    else {
+                       // the user already has a score, but it's higher than this one
+                        Log.d(TAG, "Not a new score for user")
+                    }
 
-             }
+                } else {
+                    highScoresReference.add(score)
+                    Log.d(TAG, "First score for user, adding firebase document")
+                }
 
-         }
+            }
+        }  ?: run {
+            Log.w(TAG, "No player ID provided")
+        }
     }
 
     override fun onCleared() {

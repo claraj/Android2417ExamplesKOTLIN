@@ -69,12 +69,14 @@ class GameFragment : Fragment() {
         alienViews.forEach { alien -> alien.setOnClickListener { alienTapped(it) } }
 
         vibrator = requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        //https://stackoverflow.com/questions/18459122/play-sound-on-button-click-android
         val mediaPlayer = MediaPlayer.create(requireActivity(), R.raw.ping)
 
         startGame()
         return mainView
     }
 
+//     or https://hiteshkrsahu.medium.com/create-a-repeating-task-using-coroutine-e494ebae65c2
     private fun startGame() {
          gameHandler = Handler(Looper.getMainLooper())
          gameRunnable = Runnable {
@@ -114,7 +116,7 @@ class GameFragment : Fragment() {
 
         // If 10 aliens have been shown, and user has hit 7, they are out of lives
 
-        Log.d(TAG, "shown $aliensShown hit $aliensHit")
+        Log.d(TAG, "shown $aliensShown hit $aliensHit score $score")
 
         if (aliensHit + lives <= aliensShown) {
             Log.d(TAG, "Game over, score $score")

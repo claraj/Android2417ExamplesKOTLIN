@@ -80,7 +80,7 @@ class WelcomeFragment : Fragment() {
             if (newPlayerName.isBlank()) {
                 Snackbar.make(requireView(), "Enter your name", Snackbar.LENGTH_SHORT).show()
             } else {
-                val bundle = bundleOf(PLAYER_NAME_RESULT_KEY to playerName)
+                val bundle = bundleOf(PLAYER_NAME_RESULT_KEY to newPlayerName)
                 setFragmentResult(WELCOME_REQUEST_KEY, bundle)
             }
         }
