@@ -40,9 +40,12 @@ class ButtonsFragment : Fragment() {
     }
 
     private fun chooseRandomArrow() {
-        // Choose a direction from the choices "LEFT" or "RIGHT"
+        // Choose a direction from the choices "LEFT" or "RIGHT",
+        // which are stored in the ViewModel
         val directions = arrowViewModel.arrowDirections
         val selectedDirection = directions.random()
+        // Update the ViewModel with the direction chosen.
+        // ArrowFragment is observing this value so can update the display.
         arrowViewModel.currentArrowDirection.value = selectedDirection
     }
 

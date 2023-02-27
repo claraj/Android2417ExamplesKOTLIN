@@ -16,9 +16,9 @@ private const val ARG_ARROW_DIRECTION = "arrow_direction"
  * Use the [ArrowFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ArrowFragment : Fragment() {
 
-    private val TAG = "ARROW_FRAGMENT"
+private const val TAG = "ARROW_FRAGMENT"
+class ArrowFragment : Fragment() {
 
     private var initialArrowDirection: String? = null
 
@@ -29,12 +29,14 @@ class ArrowFragment : Fragment() {
         ViewModelProvider(requireActivity()).get(ArrowViewModel::class.java)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             initialArrowDirection = it.getString(ARG_ARROW_DIRECTION)
         }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +50,8 @@ class ArrowFragment : Fragment() {
         // show the appropriate arrow.
         setArrowDirection(initialArrowDirection)
 
-        // Observe the arrowDirection in the ViewModel.
+        // Observe the arrowDirection in the ViewModel, and update arrow shown
+        // when the direction changes.
         arrowViewModel.currentArrowDirection.observe(requireActivity()) {
             newDirection -> setArrowDirection(newDirection)
         }
@@ -91,16 +94,15 @@ class ArrowFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param initialArrowDirection the direction of the arrow, if an arrow is to be shown when the fragment is first shown on screen.
+         * May be null, in this case, no arrow will be shown.
          * @return A new instance of fragment ArrowFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String) =
+        fun newInstance(initialArrowDirection: String?) =
             ArrowFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_ARROW_DIRECTION, param1)
+                    putString(ARG_ARROW_DIRECTION, initialArrowDirection)
                 }
             }
     }
