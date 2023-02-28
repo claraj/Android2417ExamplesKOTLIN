@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TSALineRandomizer_Fragments</string>
+    <string name="clear">Clear</string>
+    <string name="choose_direction">Choose Direction</string>
+    <string name="right_arrow">Right Arrow</string>
+    <string name="left_arrow">Left Arrow</string>
+</resources>
