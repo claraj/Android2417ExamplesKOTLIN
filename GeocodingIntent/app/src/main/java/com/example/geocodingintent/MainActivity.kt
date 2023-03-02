@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         val geocoder = Geocoder(this)
         try {
             val addresses = geocoder.getFromLocationName(placeName, 1)
-            val address = addresses.firstOrNull()
+            val address = addresses?.firstOrNull()  // null safety operator
 
             // The classic way - an if statement, check if address is null
             if (address == null) {
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             Log.e(TAG, "Unable to geocode $placeName", e)
             Toast.makeText(this, getString(R.string.not_online_cannot_geocode_error),
                 Toast.LENGTH_LONG).show()
-            return;
+            return
         }
     }
 }
