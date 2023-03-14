@@ -38,9 +38,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun showMapForPlace(placeName: String) {
         // Geocode place name to find most likely location for name
-        val geocoder = Geocoder(this)
         try {
+            // blocking call - code has to stop and wait until this is done (or it fails or we get an errors)
+            val geocoder = Geocoder(this)
             val addresses = geocoder.getFromLocationName(placeName, 1)
+
             val address = addresses?.firstOrNull()  // null safety operator
 
             // The classic way - an if statement, check if address is null
