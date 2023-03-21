@@ -10,7 +10,7 @@ const val TAG = "PLACE_REPOSITORY"
 
 class PlaceRepository {
 
-    private val BASE_URL = "https://place-wish-list.herokuapp.com/api/"
+    private val BASE_URL = "https://claraj.pythonanywhere.com/api/"
 
     private val client: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(AuthorizationHeaderInterceptor())

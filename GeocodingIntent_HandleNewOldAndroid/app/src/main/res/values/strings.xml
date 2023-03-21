@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GeocodingIntent</string>
+    <string name="map_button_text">Show Map</string>
+    <string name="instructions">Enter place to map</string>
+    <string name="no_places_found_message">No places found with this name</string>
+    <string name="not_online_cannot_geocode_error">Sorry, unable to find place. Are you online?</string>
+</resources>
